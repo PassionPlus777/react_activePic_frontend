@@ -1,6 +1,6 @@
 import { Card } from "antd";
 
-const MarkerComponent = () => {
+const SupportComponent = () => {
   return (
     <Card
       title="PLEASE ENTER THE RANGE YOU WOULD LIKE"
@@ -10,4 +10,4 @@ const MarkerComponent = () => {
   );
 };
 
-export default MarkerComponent;
+export default SupportComponent;
