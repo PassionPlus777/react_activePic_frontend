@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import { Col, Row } from "antd";
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import SideBarComponent from "@/components/SideBarComponent";
 import MarkerPage from "@/pages/MarkerPage";
@@ -11,6 +11,7 @@ const HomePage = lazy(() => import("@/pages/HomePage"));
 const EventPage = lazy(() => import("@/pages/EventPage"));
 
 function AuthRouter() {
+  const location = useLocation();
   return (
     <Row className="w-full h-full home-component p-5 justify-around">
       <Col
@@ -21,7 +22,27 @@ function AuthRouter() {
       </Col>
       <Col span={19} className="flex flex-col h-full w-full">
         <div className="content-part p-3 text-white text-center rounded-md font-bold">
-          Event Management <Link to="/dashboard">Dashboard</Link>
+          {location.pathname === "/event" && (
+            <>
+              Event Management <span className="text-blue-400">Dashboard</span>
+            </>
+          )}
+          {location.pathname === "/active" && (
+            <>
+              Active <span className="text-blue-400">Dashboard</span>
+            </>
+          )}
+          {location.pathname === "/marker" && (
+            <>
+              Marker <span className="text-blue-400">Dashboard</span>
+            </>
+          )}
+          {location.pathname === "/report" && (
+            <>
+              Reporting <span className="text-blue-400">Dashboard</span>
+            </>
+          )}
+          {location.pathname === "/support" && <>Support</>}
         </div>
         <div className="flex-1 flex-wrap content-part p-5 rounded-md mt-8 overflow-y-scroll">
           <Routes>
