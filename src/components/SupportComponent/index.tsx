@@ -4,18 +4,12 @@ import { Button, Form, Input, Card } from "antd";
 import type { FormProps } from "antd";
 
 type FieldType = {
-  eventLogo?: string;
-  headerImage?: string;
-  eventImages?: string;
-  galleryPrimaryColour?: string;
-  gallerySecondaryColour?: string;
-  galleryThirdColour?: string;
-  eventWebsite?: string;
-  eventSocialMediaFacebook?: string;
-  eventSocialMediaInstagram?: string;
-  eventSocialMediaTiktok?: string;
-  eventSocialMediaXorTwitter?: string;
-  eventHashtags?: string;
+  name?: string;
+  phone?: string;
+  email?: string;
+  event?: string;
+  severity?: string;
+  description?: string;
 };
 
 const SupportComponent: React.FC = () => {
@@ -31,7 +25,7 @@ const SupportComponent: React.FC = () => {
 
   return (
     <Card
-      title="NEW GALLERY SETUP"
+      title="EVENT STATISTICS"
       bordered={false}
       className="h-full overflow-y-scroll"
     >
@@ -43,18 +37,47 @@ const SupportComponent: React.FC = () => {
         autoComplete="off"
       >
         <Form.Item<FieldType>
-          label="Event Website"
-          name="eventWebsite"
-          rules={[
-            { required: true, message: "Please input Event Website URL!" },
-          ]}
+          name="name"
+          rules={[{ required: true, message: "Please input your name" }]}
         >
-          <Input placeholder="Event Website URL" />
+          <Input placeholder="Enter Name" />
+        </Form.Item>
+
+        <Form.Item<FieldType> name="phone">
+          <Input placeholder="Enter Phone Number" />
+        </Form.Item>
+
+        <Form.Item<FieldType>
+          name="email"
+          rules={[{ required: true, message: "Please input your email" }]}
+        >
+          <Input placeholder="Enter Email" />
+        </Form.Item>
+
+        <Form.Item<FieldType>
+          name="event"
+          rules={[{ required: true, message: "Please input your event" }]}
+        >
+          <Input placeholder="Enter Event" />
+        </Form.Item>
+
+        <Form.Item<FieldType>
+          name="severity"
+          rules={[{ required: true, message: "Please input your severity" }]}
+        >
+          <Input placeholder="Enter Severity" />
+        </Form.Item>
+
+        <Form.Item<FieldType>
+          name="severity"
+          rules={[{ required: true, message: "Please input your severity" }]}
+        >
+          <Input.TextArea rows={4} placeholder="Enter Severity" maxLength={6} />
         </Form.Item>
 
         <Form.Item>
           <Button type="primary" htmlType="submit" className="w-full">
-            Save And Progress
+            Contact us
           </Button>
         </Form.Item>
       </Form>

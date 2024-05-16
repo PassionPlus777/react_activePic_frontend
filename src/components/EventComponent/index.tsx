@@ -12,7 +12,7 @@ const EventComponent: React.FC = () => {
   };
   return (
     <Tabs
-      defaultActiveKey="3"
+      defaultActiveKey="1"
       items={items}
       onChange={onChange}
       className="h-full"
