@@ -1,8 +1,7 @@
-import MarkerComponent from "@/components/MarkerComponent";
-import React from "react";
+import ReportComponent from "@/components/ReportComponent";
 
-const MarkerPage = () => {
-  return <MarkerComponent />;
+const ReportPage = () => {
+  return <ReportComponent />;
 };
 
-export default MarkerPage;
+export default ReportPage;

@@ -4,6 +4,7 @@ import { Route, Routes, Link } from "react-router-dom";
 
 import SideBarComponent from "@/components/SideBarComponent";
 import MarkerPage from "@/pages/MarkerPage";
+import ReportComponent from "@/components/ReportComponent";
 
 const HomePage = lazy(() => import("@/pages/HomePage"));
 const EventPage = lazy(() => import("@/pages/EventPage"));
@@ -26,6 +27,7 @@ function AuthRouter() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/event" element={<EventPage />} />
             <Route path="/marker" element={<MarkerPage />} />
+            <Route path="/report" element={<ReportComponent />} />
             <Route path="/*" element={<HomePage />} />
           </Routes>
         </div>
