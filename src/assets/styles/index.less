@@ -1,0 +1,292 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.font-sans {
+  font-family: "Public Sans", sans-serif;
+}
+
+/* Medium Devices, Desktops Only */
+@media only screen and (min-width: 992px) {
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  ::-webkit-scrollbar:hover {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    box-shadow: inset 0 0 0 20px rgba(0, 0, 0, 0.24);
+    border-radius: 20px;
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    box-shadow: inset 0 0 0 20px rgba(0, 0, 0, 0.37);
+    border-radius: 20px;
+  }
+}
+
+.pageloder {
+  .splash-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(25, 30, 36);
+    color: #f9fafb;
+    z-index: 999999;
+    pointer-events: none;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .spinner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+    width: 56px;
+  }
+  .spinner > div {
+    width: 12px;
+    height: 12px;
+    background-color: #1e96f7;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: fuse-bouncedelay 1s infinite ease-in-out both;
+    animation: fuse-bouncedelay 1s infinite ease-in-out both;
+  }
+  .spinner {
+    .bounce1 {
+      -webkit-animation-delay: -0.32s;
+      animation-delay: -0.32s;
+    }
+    .bounce2 {
+      -webkit-animation-delay: -0.16s;
+      animation-delay: -0.16s;
+    }
+    @-webkit-keyframes fuse-bouncedelay {
+      0%,
+      80%,
+      100% {
+        -webkit-transform: scale(0);
+      }
+      40% {
+        -webkit-transform: scale(1);
+      }
+    }
+  }
+}
+
+@keyframes fuse-bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+.bg-default {
+  background: url("../images/default_background.png") no-repeat;
+  background-size: cover;
+}
+
+.ant-input-prefix {
+  margin-inline-end: 10px !important;
+}
+
+.title {
+  div {
+    font-family: "Roboto";
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 71.14px;
+    text-align: left;
+    color: white;
+  }
+  img {
+    width: 300px;
+    height: 47px;
+    gap: 0px;
+    opacity: 0px;
+    margin-top: -20px;
+    transition: width 0.3s, height 0.3s;
+  }
+}
+
+.home-component {
+  background: url("/images/home_background.png");
+  background-size: cover;
+  .search-input {
+    background: rgba(81, 97, 99, 1);
+    border: none;
+    color: white;
+  }
+  .sidebar {
+    background-color: rgba(233, 239, 242, 0.85);
+    .mark {
+      background: rgba(25, 30, 36, 0.7);
+    }
+    img {
+      max-width: 80%;
+    }
+    .user-email {
+      color: #ef4100;
+    }
+  }
+  .set-icon {
+    .ant-btn-icon {
+      position: absolute;
+      left: 10px;
+      top: 8px;
+    }
+  }
+  .content {
+    background-color: #f9fafb;
+  }
+  .content-part {
+    font-size: 33px;
+    background: rgba(62, 76, 78, 0.7);
+  }
+  .content-item {
+    background: rgba(165, 215, 233, 0.5);
+    & > * {
+      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+    .description {
+      p {
+        line-height: 15px;
+        margin-top: 5px;
+      }
+    }
+  }
+}
+
+.remember {
+  margin-top: -3px;
+}
+.sidebar-button {
+  p {
+    font-size: 12px;
+  }
+  text-decoration: none;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.selected-button {
+  background: linear-gradient(
+    to right,
+    rgba(255, 209, 52, 1),
+    rgba(157, 128, 29, 0.7)
+  );
+}
+
+.default-button {
+  background: linear-gradient(
+    to right,
+    rgba(233, 239, 242, 1),
+    rgba(135, 138, 140, 0.7)
+  );
+}
+
+.clear-button {
+  background: rgba(233, 239, 242, 1);
+}
+
+.contentitem-button {
+  p {
+    font-size: 14px;
+  }
+  img {
+    width: 24px;
+    height: 24px;
+  }
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(
+    85.86deg,
+    rgba(233, 239, 242, 0.85) 0%,
+    rgba(138, 113, 31, 0.85) 160.58%
+  );
+  min-width: 140px;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.content-upload-button {
+  p {
+    font-size: 14px;
+    color: white;
+  }
+  div {
+    background: rgba(104, 50, 245, 1);
+    padding: 9.5px;
+  }
+
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background: rgba(83, 31, 223, 0.85);
+
+  min-width: 140px;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.25);
+    div {
+      padding: 10px 11.5px;
+      img:first-child {
+        margin-bottom: 3px;
+      }
+    }
+  }
+}
+
+.statistic-card {
+  background: #00aeef;
+
+  * {
+    color: white !important;
+  }
+}
+
+.ant-tabs-content-holder {
+  .ant-tabs-content-top,
+  .ant-tabs-tabpane {
+    height: 100% !important;
+  }
+}
+
+.ant-upload-wrapper {
+  .ant-upload-select,
+  button {
+    width: 100% !important;
+  }
+}
