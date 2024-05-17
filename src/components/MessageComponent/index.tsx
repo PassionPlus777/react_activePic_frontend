@@ -2,16 +2,20 @@ import { FC, useEffect } from "react";
 import { message } from "antd";
 import { MessageDataTypes } from "@/types";
 
-const MessageComponent: FC<MessageDataTypes> = ({ status, type, content }) => {
+const MessageComponent: FC<MessageDataTypes> = ({
+  datetime,
+  type,
+  content,
+}) => {
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
-    status &&
+    datetime &&
       messageApi.open({
         type: type,
         content: content,
       });
-  }, [status]);
+  }, [datetime]);
 
   return contextHolder;
 };

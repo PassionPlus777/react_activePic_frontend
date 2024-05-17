@@ -7,18 +7,19 @@ import {
 
 import { request } from "@/utils";
 import { SignInDataTypes } from "@/types";
-import { messageApi } from "@/utils/message";
 
-// ... (other imports remain the same)
+import { showMessage } from "./messageSlice";
 
 // Define a type for the slice state
 interface AuthState {
   loginStatus: boolean;
+  error: { content?: string; datetime: number };
 }
 
 // Define the initial state using that type
 const initialState: AuthState = {
   loginStatus: false,
+  error: { content: "", datetime: 0 },
 };
 
 export const signIn = createAsyncThunk<
@@ -27,7 +28,10 @@ export const signIn = createAsyncThunk<
   { rejectValue: string }
 >(
   "users/login",
-  async ({ email, password }: SignInDataTypes, { rejectWithValue }) => {
+  async (
+    { email, password }: SignInDataTypes,
+    { dispatch, rejectWithValue }
+  ) => {
     try {
       const res = await request({
         method: "POST",
@@ -37,19 +41,26 @@ export const signIn = createAsyncThunk<
           password,
         },
       });
-      if (res.status === 200) {
-        localStorage.setItem("axios_token", res.data.token);
-        return true; // Explicitly return true
-      }
-      return false;
-      // Explicitly return false
+
+      dispatch(
+        showMessage({
+          datetime: Date.now(),
+          type: "success",
+          content: "Log in successfully",
+        })
+      );
+
+      localStorage.setItem("axios_token", res.data.token);
+      return true; // Explicitly return true
     } catch (error: any) {
-      // messageApi.open({
-      //   type: "error",
-      //   content: error.response.data.errors[0].nessage,
-      // });
-      // Reject with value (you can customize the error message)
-      return rejectWithValue("Failed to login");
+      dispatch(
+        showMessage({
+          datetime: Date.now(),
+          type: "error",
+          content: error.response.data.errors[0].message,
+        })
+      );
+      return rejectWithValue("Login faild"); // Reject with value (you can customize the error message)
     }
   }
 );
@@ -59,15 +70,12 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder: ActionReducerMapBuilder<AuthState>) => {
-    builder
-      .addCase(signIn.fulfilled, (state, action: PayloadAction<boolean>) => {
+    builder.addCase(
+      signIn.fulfilled,
+      (state, action: PayloadAction<boolean>) => {
         state.loginStatus = action.payload;
-      })
-      .addCase(signIn.rejected, (state, action) => {
-        // Handle the rejected case, action.payload will be the value from rejectWithValue
-        console.error("Login failed:", action.payload);
-        state.loginStatus = false;
-      });
+      }
+    );
   },
 });
 

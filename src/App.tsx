@@ -1,24 +1,19 @@
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import { ConfigProvider, message } from "antd";
+import { ConfigProvider } from "antd";
 import { IntlProvider } from "react-intl";
 
 import { ThemeConfig, LangConfig } from "@/config";
 
 import LoadingComponent from "@/components/LoadingComponent";
 
+import MessagePage from "./pages/MessagePage";
 import AppRoute from "@/router/RouterComponent";
 
-// import { contextHolder, messageApi } from "./utils/message";
 import { store } from "@/store";
 
 function App() {
-  const [messageApi, contextHolder] = message.useMessage();
-
-  useEffect(() => {
-    messageApi.error("error.response.data.errors[0].nessage");
-  }, []);
   return (
     <Provider store={store}>
       <ConfigProvider theme={ThemeConfig}>
@@ -27,7 +22,7 @@ function App() {
             <Router>
               <AppRoute />
             </Router>
-            {contextHolder}
+            <MessagePage />
           </Suspense>
         </IntlProvider>
       </ConfigProvider>

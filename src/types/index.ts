@@ -9,7 +9,7 @@ export interface SignFuncTypes {
 }
 
 export interface MessageDataTypes {
-  status: boolean;
+  datetime: number;
   type: "info" | "success" | "error";
   content: string;
 }

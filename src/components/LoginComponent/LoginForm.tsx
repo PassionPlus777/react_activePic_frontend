@@ -2,14 +2,11 @@ import { FC } from "react";
 import type { FormProps } from "antd";
 import { Button, Form, Input, Switch } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
 
 import { SignInDataTypes, SignFuncTypes } from "@/types";
 import GoogleSignIn from "../GoogleSignComponent";
 
 const LoginForm: FC<SignFuncTypes> = ({ dispatchSignIn }) => {
-  const navgate = useNavigate();
-
   const onFinish: FormProps<SignInDataTypes>["onFinish"] = (values) => {
     dispatchSignIn(values);
   };
@@ -17,7 +14,6 @@ const LoginForm: FC<SignFuncTypes> = ({ dispatchSignIn }) => {
   const onFinishFailed: FormProps<SignInDataTypes>["onFinishFailed"] = (
     errorInfo
   ) => {
-    navgate("/home");
     console.log("Failed:", errorInfo);
   };
   return (

@@ -5,7 +5,7 @@ import { MessageDataTypes } from "@/types";
 
 // Define the initial state using that type
 const initialState: MessageDataTypes = {
-  status: false,
+  datetime: 0,
   type: "info",
   content: "",
 };
@@ -17,10 +17,10 @@ export const messageSlice = createSlice({
     showMessage: (
       state: MessageDataTypes,
       action: PayloadAction<MessageDataTypes>
-    ) => {
-      state = { ...action.payload };
-    },
+    ) => action.payload,
   },
 });
+
+export const { showMessage } = messageSlice.actions;
 
 export default messageSlice.reducer;

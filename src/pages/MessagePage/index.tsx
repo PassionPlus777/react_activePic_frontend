@@ -1,8 +1,9 @@
-import MessageComponent from "@/components/MessageComponent";
 import { useAppSelector } from "@/store";
 
+import MessageComponent from "@/components/MessageComponent";
+
 const MessagePage = () => {
-  const { message } = useAppSelector((state) => state);
+  const message = useAppSelector((state) => state.message);
 
   return <MessageComponent {...message} />;
 };
