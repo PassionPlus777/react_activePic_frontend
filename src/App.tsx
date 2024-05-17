@@ -1,24 +1,30 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
 import { ConfigProvider } from "antd";
 import { IntlProvider } from "react-intl";
 
 import { ThemeConfig, LangConfig } from "@/config";
 
 import LoadingComponent from "@/components/LoadingComponent";
-import AppRoute from "@/router/router";
+
+import AppRoute from "@/router/RouterComponent";
+
+import { store } from "@/store";
 
 function App() {
   return (
-    <ConfigProvider theme={ThemeConfig}>
-      <IntlProvider locale={"en-US"} messages={LangConfig["en-US"]}>
-        <Suspense fallback={<LoadingComponent />}>
-          <Router>
-            <AppRoute />
-          </Router>
-        </Suspense>
-      </IntlProvider>
-    </ConfigProvider>
+    <Provider store={store}>
+      <ConfigProvider theme={ThemeConfig}>
+        <IntlProvider locale={"en-US"} messages={LangConfig["en-US"]}>
+          <Suspense fallback={<LoadingComponent />}>
+            <Router>
+              <AppRoute />
+            </Router>
+          </Suspense>
+        </IntlProvider>
+      </ConfigProvider>
+    </Provider>
   );
 }
 
