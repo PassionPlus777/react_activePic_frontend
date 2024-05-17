@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import { Col, Row } from "antd";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 
 import SideBarComponent from "@/components/SideBarComponent";
 import MarkerPage from "@/pages/MarkerPage";
@@ -22,6 +22,11 @@ function AuthRouter() {
       </Col>
       <Col span={19} className="flex flex-col h-full w-full">
         <div className="content-part p-3 text-white text-center rounded-md font-bold">
+          {location.pathname === "/home" && (
+            <>
+              Event Management <span className="text-blue-400">Dashboard</span>
+            </>
+          )}
           {location.pathname === "/event" && (
             <>
               Event Management <span className="text-blue-400">Dashboard</span>
@@ -51,7 +56,7 @@ function AuthRouter() {
             <Route path="/marker" element={<MarkerPage />} />
             <Route path="/report" element={<ReportComponent />} />
             <Route path="/support" element={<SupportComponent />} />
-            <Route path="/*" element={<HomePage />} />
+            <Route path="*" element={<Navigate to="/home" replace={true} />} />
           </Routes>
         </div>
       </Col>
