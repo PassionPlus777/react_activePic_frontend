@@ -4,21 +4,17 @@ import { Button, Form, Input, Switch } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
-import { SignInTypes } from "@/types";
+import { SignInDataTypes, SignFuncTypes } from "@/types";
 import GoogleSignIn from "../GoogleSignComponent";
 
-interface loginFormProps {
-  dispatchSignIn: CallableFunction;
-}
-
-const LoginForm: FC<loginFormProps> = ({ dispatchSignIn }) => {
+const LoginForm: FC<SignFuncTypes> = ({ dispatchSignIn }) => {
   const navgate = useNavigate();
 
-  const onFinish: FormProps<SignInTypes>["onFinish"] = (values) => {
+  const onFinish: FormProps<SignInDataTypes>["onFinish"] = (values) => {
     dispatchSignIn(values);
   };
 
-  const onFinishFailed: FormProps<SignInTypes>["onFinishFailed"] = (
+  const onFinishFailed: FormProps<SignInDataTypes>["onFinishFailed"] = (
     errorInfo
   ) => {
     navgate("/home");
@@ -30,10 +26,9 @@ const LoginForm: FC<loginFormProps> = ({ dispatchSignIn }) => {
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      autoComplete="off"
       className="content-center p-5 w-full"
     >
-      <Form.Item<SignInTypes>
+      <Form.Item<SignInDataTypes>
         name="email"
         className="w-full"
         rules={[
@@ -46,16 +41,16 @@ const LoginForm: FC<loginFormProps> = ({ dispatchSignIn }) => {
         <Input placeholder="Email" prefix={<MailOutlined />} />
       </Form.Item>
 
-      <Form.Item<SignInTypes> name="password" rules={[{ required: true }]}>
+      <Form.Item<SignInDataTypes> name="password" rules={[{ required: true }]}>
         <Input.Password placeholder="Password" prefix={<LockOutlined />} />
       </Form.Item>
 
-      {/* <Form.Item<SignInTypes> name="remember" valuePropName="checked">
+      <Form.Item<SignInDataTypes> name="remember" valuePropName="checked">
         <div className="flex">
           <Switch size="small" />
           <p className="ml-5 remember">Remember me</p>
         </div>
-      </Form.Item> */}
+      </Form.Item>
 
       <Form.Item>
         <Button type="primary" htmlType="submit" className="w-full">

@@ -3,12 +3,9 @@ import { FormattedMessage } from "react-intl";
 import { Col, Row } from "antd";
 
 import LoginForm from "./LoginForm";
+import { SignFuncTypes } from "@/types";
 
-interface loginComponentProps {
-  dispatchSignIn: CallableFunction;
-}
-
-const LoginComponent: FC<loginComponentProps> = ({ dispatchSignIn }) => {
+const LoginComponent: FC<SignFuncTypes> = ({ dispatchSignIn }) => {
   return (
     <Row className="w-full h-full bg-default">
       <Col lg={15} className="flex w-full justify-center">

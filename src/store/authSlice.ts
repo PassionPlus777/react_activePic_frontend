@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 
 import { request } from "@/utils";
-import { SignInTypes } from "@/types";
+import { SignInDataTypes } from "@/types";
 
 // ... (other imports remain the same)
 
@@ -22,11 +22,11 @@ const initialState: AuthState = {
 
 export const signIn = createAsyncThunk<
   boolean,
-  SignInTypes,
+  SignInDataTypes,
   { rejectValue: string }
 >(
   "users/login",
-  async ({ email, password }: SignInTypes, { rejectWithValue }) => {
+  async ({ email, password }: SignInDataTypes, { rejectWithValue }) => {
     try {
       const res = await request({
         method: "POST",

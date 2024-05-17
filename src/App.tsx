@@ -9,6 +9,7 @@ import { ThemeConfig, LangConfig } from "@/config";
 import LoadingComponent from "@/components/LoadingComponent";
 
 import AppRoute from "@/router/RouterComponent";
+import MessagePage from "./pages/MessagePage";
 
 import { store } from "@/store";
 
@@ -21,6 +22,7 @@ function App() {
             <Router>
               <AppRoute />
             </Router>
+            <MessagePage />
           </Suspense>
         </IntlProvider>
       </ConfigProvider>
