@@ -1,10 +1,14 @@
-import React from "react";
+import { FC } from "react";
 import { FormattedMessage } from "react-intl";
 import { Col, Row } from "antd";
 
 import LoginForm from "./LoginForm";
 
-function LoginComponent() {
+interface loginComponentProps {
+  dispatchSignIn: CallableFunction;
+}
+
+const LoginComponent: FC<loginComponentProps> = ({ dispatchSignIn }) => {
   return (
     <Row className="w-full h-full bg-default">
       <Col lg={15} className="flex w-full justify-center">
@@ -18,10 +22,10 @@ function LoginComponent() {
         </div>
       </Col>
       <Col lg={9} className="flex bg-white w-full">
-        <LoginForm />
+        <LoginForm dispatchSignIn={dispatchSignIn} />
       </Col>
     </Row>
   );
-}
+};
 
 export default LoginComponent;
