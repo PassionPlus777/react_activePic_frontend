@@ -1,40 +1,19 @@
-import React from "react";
-import { Button, message, Space } from "antd";
+import { FC, useEffect } from "react";
+import { message } from "antd";
+import { MessageDataTypes } from "@/types";
 
-const MessageComponent: React.FC = () => {
+const MessageComponent: FC<MessageDataTypes> = ({ status, type, content }) => {
   const [messageApi, contextHolder] = message.useMessage();
 
-  const success = () => {
-    messageApi.open({
-      type: "success",
-      content: "This is a success message",
-    });
-  };
+  useEffect(() => {
+    status &&
+      messageApi.open({
+        type: type,
+        content: content,
+      });
+  }, [status]);
 
-  const error = () => {
-    messageApi.open({
-      type: "error",
-      content: "This is an error message",
-    });
-  };
-
-  const warning = () => {
-    messageApi.open({
-      type: "warning",
-      content: "This is a warning message",
-    });
-  };
-
-  return (
-    <>
-      {contextHolder}
-      <Space>
-        <Button onClick={success}>Success</Button>
-        <Button onClick={error}>Error</Button>
-        <Button onClick={warning}>Warning</Button>
-      </Space>
-    </>
-  );
+  return contextHolder;
 };
 
 export default MessageComponent;

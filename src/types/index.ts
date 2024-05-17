@@ -8,8 +8,8 @@ export interface SignFuncTypes {
   dispatchSignIn: CallableFunction;
 }
 
-export interface MessageTypes {
+export interface MessageDataTypes {
   status: boolean;
-  type: string;
+  type: "info" | "success" | "error";
   content: string;
 }
