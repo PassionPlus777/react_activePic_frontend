@@ -1,25 +1,24 @@
-import React from "react";
+import { FC } from "react";
 import type { FormProps } from "antd";
 import { Button, Form, Input, Switch } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
+import { SignInTypes } from "@/types";
 import GoogleSignIn from "../GoogleSignComponent";
 
-type FieldType = {
-  username?: string;
-  password?: string;
-  remember?: string;
-};
+interface loginFormProps {
+  dispatchSignIn: CallableFunction;
+}
 
-const LoginForm: React.FC = () => {
+const LoginForm: FC<loginFormProps> = ({ dispatchSignIn }) => {
   const navgate = useNavigate();
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    navgate("/home");
-    console.log("Success:", values);
+
+  const onFinish: FormProps<SignInTypes>["onFinish"] = (values) => {
+    dispatchSignIn(values);
   };
 
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
+  const onFinishFailed: FormProps<SignInTypes>["onFinishFailed"] = (
     errorInfo
   ) => {
     navgate("/home");
@@ -34,27 +33,29 @@ const LoginForm: React.FC = () => {
       autoComplete="off"
       className="content-center p-5 w-full"
     >
-      <Form.Item<FieldType>
-        name="username"
+      <Form.Item<SignInTypes>
+        name="email"
         className="w-full"
-        rules={[{ required: true, message: "Please input your username!" }]}
+        rules={[
+          {
+            required: true,
+            type: "email",
+          },
+        ]}
       >
-        <Input prefix={<MailOutlined />} />
+        <Input placeholder="Email" prefix={<MailOutlined />} />
       </Form.Item>
 
-      <Form.Item<FieldType>
-        name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
-      >
-        <Input.Password prefix={<LockOutlined />} />
+      <Form.Item<SignInTypes> name="password" rules={[{ required: true }]}>
+        <Input.Password placeholder="Password" prefix={<LockOutlined />} />
       </Form.Item>
 
-      <Form.Item<FieldType> name="remember" valuePropName="checked">
+      {/* <Form.Item<SignInTypes> name="remember" valuePropName="checked">
         <div className="flex">
           <Switch size="small" />
           <p className="ml-5 remember">Remember me</p>
         </div>
-      </Form.Item>
+      </Form.Item> */}
 
       <Form.Item>
         <Button type="primary" htmlType="submit" className="w-full">
