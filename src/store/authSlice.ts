@@ -7,6 +7,7 @@ import {
 
 import { request } from "@/utils";
 import { SignInDataTypes } from "@/types";
+import { messageApi } from "@/utils/message";
 
 // ... (other imports remain the same)
 
@@ -40,9 +41,13 @@ export const signIn = createAsyncThunk<
         localStorage.setItem("axios_token", res.data.token);
         return true; // Explicitly return true
       }
-      return false; // Explicitly return false
-    } catch (error) {
-      console.error(error);
+      return false;
+      // Explicitly return false
+    } catch (error: any) {
+      // messageApi.open({
+      //   type: "error",
+      //   content: error.response.data.errors[0].nessage,
+      // });
       // Reject with value (you can customize the error message)
       return rejectWithValue("Failed to login");
     }

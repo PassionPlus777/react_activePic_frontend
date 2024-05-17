@@ -17,8 +17,6 @@
     "antd": "^5.17.0",
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
-    "firebase": "^10.12.0",
-    "firebaseui": "^6.1.0",
     "postcss": "^8.4.38",
     "postcss-cli": "^11.0.0",
     "react": "^18.2.0",

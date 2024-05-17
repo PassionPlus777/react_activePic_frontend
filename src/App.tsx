@@ -1,7 +1,7 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, message } from "antd";
 import { IntlProvider } from "react-intl";
 
 import { ThemeConfig, LangConfig } from "@/config";
@@ -9,11 +9,16 @@ import { ThemeConfig, LangConfig } from "@/config";
 import LoadingComponent from "@/components/LoadingComponent";
 
 import AppRoute from "@/router/RouterComponent";
-import MessagePage from "./pages/MessagePage";
 
+// import { contextHolder, messageApi } from "./utils/message";
 import { store } from "@/store";
 
 function App() {
+  const [messageApi, contextHolder] = message.useMessage();
+
+  useEffect(() => {
+    messageApi.error("error.response.data.errors[0].nessage");
+  }, []);
   return (
     <Provider store={store}>
       <ConfigProvider theme={ThemeConfig}>
@@ -22,7 +27,7 @@ function App() {
             <Router>
               <AppRoute />
             </Router>
-            <MessagePage />
+            {contextHolder}
           </Suspense>
         </IntlProvider>
       </ConfigProvider>
