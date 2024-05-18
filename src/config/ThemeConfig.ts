@@ -16,5 +16,8 @@ export default {
       inkBarColor: "#00AEEF",
       itemActiveColor: "#00AEEF",
     },
+    // Card: {
+    //   colorBgContainer: "rgba(165, 215, 233, 0.5)",
+    // },
   },
 };

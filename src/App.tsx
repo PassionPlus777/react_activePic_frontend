@@ -16,7 +16,7 @@ import { store } from "@/store";
 function App() {
   return (
     <Provider store={store}>
-      <ConfigProvider theme={ThemeConfig}>
+      <ConfigProvider theme={{ ...ThemeConfig }}>
         <IntlProvider locale={"en-US"} messages={LangConfig["en-US"]}>
           <Suspense fallback={<LoadingComponent />}>
             <Router>
