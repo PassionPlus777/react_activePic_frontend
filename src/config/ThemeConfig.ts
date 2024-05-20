@@ -16,6 +16,9 @@ export default {
       inkBarColor: "#00AEEF",
       itemActiveColor: "#00AEEF",
     },
+    Spin: {
+      colorPrimary: "rgb(96 165 250)",
+    },
     // Card: {
     //   colorBgContainer: "rgba(165, 215, 233, 0.5)",
     // },

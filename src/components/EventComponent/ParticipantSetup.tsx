@@ -1,31 +1,101 @@
-import React from "react";
-import { Button, Form, Input, Card, Upload, Typography, Divider } from "antd";
+import React, { useState } from "react";
+import { Button, Input, Card, Upload, Typography, Divider, Table } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import type { UploadFile, UploadProps } from "antd";
 
-import type { FormProps } from "antd";
+interface tableData {
+  participantNumber: string;
+  firstName: string;
+  lastName: string;
+  distance: string;
+  time: string;
+}
 
-type FieldType = {
-  participantData: string;
-  participantCSV: string;
-};
+const columns = [
+  {
+    title: "Participant Number",
+    dataIndex: "participantNumber",
+    key: "1",
+  },
+  {
+    title: "First Name",
+    dataIndex: "firstName",
+    key: "2",
+  },
+  {
+    title: "Last Name",
+    dataIndex: "lastName",
+    key: "3",
+  },
+  {
+    title: "Distance",
+    dataIndex: "distance",
+    key: "4",
+  },
+  {
+    title: "Time",
+    dataIndex: "time",
+    key: "5",
+  },
+];
 
 const ParticipantSetup: React.FC = () => {
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [tableData, setTableData] = useState<tableData[]>([]);
+
+  const readAndParseCsv = (file: Blob) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        resolve(e.target?.result);
+      };
+
+      reader.onerror = () => {
+        reader.abort();
+        reject(new DOMException("Error reading the file."));
+      };
+
+      reader.readAsText(file);
+    });
   };
 
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
-    errorInfo
-  ) => {
-    console.log("Failed:", errorInfo);
+  const makeTableData = (fileData: any): tableData[] => {
+    const dataArray: string[] = fileData.split(["\r\n"]);
+
+    if (dataArray.length) dataArray.shift();
+
+    return dataArray.map((item, index) => {
+      const tempArray: string[] = item.split(",");
+
+      return {
+        participantNumber: tempArray.length > 0 ? tempArray[0] : "",
+        firstName: tempArray.length > 1 ? tempArray[1] : "",
+        lastName: tempArray.length > 2 ? tempArray[2] : "",
+        distance: tempArray.length > 3 ? tempArray[3] : "",
+        time: tempArray.length > 4 ? tempArray[4] : "",
+        key: index,
+      };
+    });
   };
 
-  const normFile = (e: any) => {
-    console.log("Upload event:", e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
+  const props: UploadProps = {
+    onRemove: () => {
+      setFileList([]);
+      setTableData([]);
+    },
+    beforeUpload: async (file) => {
+      setFileList([file]);
+      try {
+        const fileData = await readAndParseCsv(file);
+        setTableData(makeTableData(fileData));
+      } catch (error) {
+        console.log(error);
+      }
+      return false;
+    },
+    fileList,
+    accept: ".csv",
   };
 
   return (
@@ -34,57 +104,45 @@ const ParticipantSetup: React.FC = () => {
       bordered={false}
       className="h-full overflow-y-scroll"
     >
-      <Form
-        name="participantSetup"
-        layout="vertical"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
+      <Typography.Title level={5}>
+        *If you need support, please contact us at support@activepic.com
+      </Typography.Title>
+
+      <Divider className="mt-0" />
+
+      <Typography.Title level={5}>
+        Upload participant data. The data should be a .csv file in the following
+        format:
+      </Typography.Title>
+
+      <Input.TextArea
+        disabled
+        value="participantNumber, firstName, lastName, distance, time
+eg. 1, John, Doe, 5km, 30:00"
+      />
+
+      <Upload {...props}>
+        <Button icon={<UploadOutlined />} className="mt-5">
+          Paticipant CSV File
+        </Button>
+      </Upload>
+
+      <Typography.Title level={5} className="mt-8">
+        Priview
+      </Typography.Title>
+
+      <Divider className="mt-0" />
+
+      <Table dataSource={tableData} columns={columns} />
+
+      <Button
+        type="primary"
+        htmlType="submit"
+        className="w-full mt-5"
+        disabled={!tableData.length}
       >
-        <Typography.Title level={5}>
-          *If you need support, please contact us at support@activepic.com
-        </Typography.Title>
-
-        <Divider className="mt-0" />
-
-        <Form.Item<FieldType>
-          label="Upload participant data. The data should be a .csv file in the following format:"
-          name="participantData"
-          rules={[
-            { required: true, message: "Please input Participant Data!" },
-          ]}
-        >
-          <Input placeholder="Participant Data" />
-        </Form.Item>
-
-        <Form.Item<FieldType>
-          label="Paticipant Upload"
-          name="participantCSV"
-          rules={[
-            { required: true, message: "Please Choose Paticipant CSV File!" },
-          ]}
-          getValueFromEvent={normFile}
-        >
-          <Upload
-            maxCount={1}
-            name="participantCSV"
-            action="/upload.do"
-            listType="picture"
-          >
-            <Button icon={<UploadOutlined />}>Paticipant CSV File</Button>
-          </Upload>
-        </Form.Item>
-
-        <Typography.Title level={5}>Priview</Typography.Title>
-
-        <Divider className="mt-0" />
-
-        <Form.Item>
-          <Button type="primary" htmlType="submit" className="w-full">
-            Save And Progress
-          </Button>
-        </Form.Item>
-      </Form>
+        Save And Progress
+      </Button>
     </Card>
   );
 };

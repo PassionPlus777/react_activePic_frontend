@@ -13,3 +13,16 @@ export interface MessageDataTypes {
   type: "info" | "success" | "error";
   content: string;
 }
+
+export interface HomeSliceState {
+  docs: any[];
+  totalDocs: number;
+  limit: number;
+  totalPages: number;
+  page: number;
+  pagingCounter: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  prevPage: unknown;
+  nextPage: number;
+}

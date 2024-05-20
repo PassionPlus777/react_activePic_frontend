@@ -1,9 +1,18 @@
+import { FC, useEffect, useState } from "react";
 import { Col, Row, Input, Button } from "antd";
 import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
 
 import ContentItem from "./ContentItem";
+import { HomeSliceState } from "@/types";
+import SpinComponent from "../SpinComponent";
 
-function HomeComponent() {
+const HomeComponent: FC<HomeSliceState> = ({ docs }) => {
+  const [events, setEvents] = useState<any[]>([]);
+
+  useEffect(() => {
+    setEvents(docs);
+  }, [docs]);
+
   return (
     <>
       <div className="mt-4">
@@ -27,14 +36,16 @@ function HomeComponent() {
         </Row>
       </div>
       <div className="mt-6">
-        <ContentItem />
-        <ContentItem />
-        <ContentItem />
-        <ContentItem />
-        <ContentItem />
+        {events.length ? (
+          events.map((event, index) => {
+            return <ContentItem event={event} key={index} />;
+          })
+        ) : (
+          <SpinComponent />
+        )}
       </div>
     </>
   );
-}
+};
 
 export default HomeComponent;

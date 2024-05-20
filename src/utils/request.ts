@@ -9,7 +9,7 @@ axios.defaults.headers.common["Authorization"] =
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 interface requestProps {
-  method: string;
+  method: "GET" | "POST" | "PATCH" | "DELETE";
   url: string;
   data?: object;
 }
