@@ -37,7 +37,7 @@ type FieldType = {
 const GallerySetup: FC<any> = ({ setEventData, setKey, eventData }) => {
   const [eventLogo, setEventLogo] = useState<UploadFile[]>([]);
   const [headerBack, setHeaderBack] = useState<UploadFile[]>([]);
-  const [images, setImages] = useState<UploadFile[]>([]);
+  // const [images, setImages] = useState<UploadFile[]>([]);
 
   const eventLogoProps: UploadProps = {
     onRemove: () => {
@@ -61,23 +61,23 @@ const GallerySetup: FC<any> = ({ setEventData, setKey, eventData }) => {
     fileList: headerBack,
   };
 
-  const imagesProps: UploadProps = {
-    onRemove: (file) => {
-      const index = images.indexOf(file);
-      const newImages = images.slice();
-      newImages.splice(index, 1);
-      setImages(newImages);
-    },
-    beforeUpload: (file) => {
-      if (images.length > 4) {
-        const newImages = images.slice();
-        newImages.pop();
-        setImages([...newImages, file]);
-      } else setImages([...images, file]);
-      return false;
-    },
-    fileList: images,
-  };
+  // const imagesProps: UploadProps = {
+  //   onRemove: (file) => {
+  //     const index = images.indexOf(file);
+  //     const newImages = images.slice();
+  //     newImages.splice(index, 1);
+  //     setImages(newImages);
+  //   },
+  //   beforeUpload: (file) => {
+  //     if (images.length > 4) {
+  //       const newImages = images.slice();
+  //       newImages.pop();
+  //       setImages([...newImages, file]);
+  //     } else setImages([...images, file]);
+  //     return false;
+  //   },
+  //   fileList: images,
+  // };
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     const { images, ...rest } = values;
@@ -145,7 +145,7 @@ const GallerySetup: FC<any> = ({ setEventData, setKey, eventData }) => {
           </Col>
         </Row>
 
-        <Row>
+        {/* <Row>
           <Col span={24}>
             <Form.Item<FieldType>
               label="Event Images (Max 5 Images)"
@@ -163,7 +163,7 @@ const GallerySetup: FC<any> = ({ setEventData, setKey, eventData }) => {
               </Upload>
             </Form.Item>
           </Col>
-        </Row>
+        </Row> */}
         {/* 
         <Typography.Text>Gallery Colour Settings</Typography.Text>
 

@@ -5,13 +5,12 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 
-// import { fetchAllEvents } from "@/store/homeSlice";
-
 import { baseAPIUrl } from "@/config";
 import { request } from "@/utils";
 
 import { showMessage } from "./messageSlice";
 import { Race } from "@/types";
+import { getMe } from "./authSlice";
 
 // Define the initial state using that type
 const initialState: Race = {
@@ -205,6 +204,8 @@ export const createRace = createAsyncThunk<any, any, { rejectValue: string }>(
         method: "PATCH",
         data: { ownedRaces: [...ownedRaces, res.data.doc.id] },
       });
+
+      dispatch(getMe());
 
       dispatch(
         showMessage({
