@@ -1,23 +1,21 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { MessageDataTypes } from "@/types";
+import { MessageData } from "@/types";
 
 // Define a type for the slice state
 
 // Define the initial state using that type
-const initialState: MessageDataTypes = {
+const initialState: MessageData = {
   datetime: 0,
   type: "info",
   content: "",
 };
 
 export const messageSlice = createSlice({
-  name: "auth",
+  name: "message",
   initialState,
   reducers: {
-    showMessage: (
-      state: MessageDataTypes,
-      action: PayloadAction<MessageDataTypes>
-    ) => action.payload,
+    showMessage: (state: MessageData, action: PayloadAction<MessageData>) =>
+      action.payload,
   },
 });
 

@@ -3,9 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import authSlice from "./authSlice";
 import messageSlice from "./messageSlice";
 import homeSlice from "./homeSlice";
+import eventSlice from "./eventSlice";
 
 export const store = configureStore({
-  reducer: { auth: authSlice, message: messageSlice, home: homeSlice },
+  reducer: {
+    auth: authSlice,
+    message: messageSlice,
+    home: homeSlice,
+    event: eventSlice,
+  },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

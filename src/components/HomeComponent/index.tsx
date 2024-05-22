@@ -3,15 +3,14 @@ import { Col, Row, Input, Button } from "antd";
 import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
 
 import ContentItem from "./ContentItem";
-import { HomeSliceState } from "@/types";
 import SpinComponent from "../SpinComponent";
 
-const HomeComponent: FC<HomeSliceState> = ({ docs }) => {
+const HomeComponent: FC<any> = ({ ownedRaces }) => {
   const [events, setEvents] = useState<any[]>([]);
 
   useEffect(() => {
-    setEvents(docs);
-  }, [docs]);
+    setEvents(ownedRaces);
+  }, [ownedRaces]);
 
   return (
     <>

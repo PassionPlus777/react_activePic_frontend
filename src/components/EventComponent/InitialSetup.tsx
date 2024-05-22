@@ -1,23 +1,17 @@
-import React from "react";
-import { Button, Form, Input, Card } from "antd";
+import { FC } from "react";
+import { Button, Form, Input, Card, DatePicker } from "antd";
 
 import type { FormProps } from "antd";
+import { Race } from "@/types";
+import dayjs from "dayjs";
 
-type FieldType = {
-  eventName?: string;
-  eventLocation?: string;
-  eventDate?: string;
-  eventDesc?: string;
-};
-
-const InitialSetup: React.FC = () => {
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+const InitialSetup: FC<any> = ({ setEventData, setKey }) => {
+  const onFinish: FormProps<Race>["onFinish"] = async (values) => {
+    setEventData({ ...values, date: dayjs(values.date).format("YYYY-MM-DD") });
+    setKey("2");
   };
 
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
-    errorInfo
-  ) => {
+  const onFinishFailed: FormProps<Race>["onFinishFailed"] = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
@@ -34,35 +28,35 @@ const InitialSetup: React.FC = () => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <Form.Item<FieldType>
+        <Form.Item<Race>
           label="Event Name"
-          name="eventName"
+          name="name"
           rules={[{ required: true, message: "Please input Event Name!" }]}
         >
           <Input placeholder="Event Name" />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<Race>
           label="Event Location"
-          name="eventLocation"
-          rules={[{ required: true, message: "Please input Event Location!" }]}
+          name="location"
+          rules={[{ required: false, message: "Please input Event Location!" }]}
         >
           <Input placeholder="Event Location" />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<Race>
           label="Event Date"
-          name="eventDate"
+          name="date"
           rules={[{ required: true, message: "Please input Event Date!" }]}
         >
-          <Input placeholder="Event Date" />
+          <DatePicker className="w-full" />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<Race>
           label="Event Description"
-          name="eventDesc"
+          name="description"
           rules={[
-            { required: true, message: "Please input Event Description!" },
+            { required: false, message: "Please input Event Description!" },
           ]}
         >
           <Input placeholder="Event Description" />

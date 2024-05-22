@@ -3,15 +3,15 @@ import type { FormProps } from "antd";
 import { Button, Form, Input, Switch } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 
-import { SignInDataTypes, SignFuncTypes } from "@/types";
+import { SignInData, SignFunc } from "@/types";
 import GoogleSignIn from "../GoogleSignComponent";
 
-const LoginForm: FC<SignFuncTypes> = ({ dispatchSignIn }) => {
-  const onFinish: FormProps<SignInDataTypes>["onFinish"] = (values) => {
+const LoginForm: FC<SignFunc> = ({ dispatchSignIn }) => {
+  const onFinish: FormProps<SignInData>["onFinish"] = (values) => {
     dispatchSignIn(values);
   };
 
-  const onFinishFailed: FormProps<SignInDataTypes>["onFinishFailed"] = (
+  const onFinishFailed: FormProps<SignInData>["onFinishFailed"] = (
     errorInfo
   ) => {
     console.log("Failed:", errorInfo);
@@ -24,7 +24,7 @@ const LoginForm: FC<SignFuncTypes> = ({ dispatchSignIn }) => {
       onFinishFailed={onFinishFailed}
       className="content-center p-5 w-full"
     >
-      <Form.Item<SignInDataTypes>
+      <Form.Item<SignInData>
         name="email"
         className="w-full"
         rules={[
@@ -37,11 +37,11 @@ const LoginForm: FC<SignFuncTypes> = ({ dispatchSignIn }) => {
         <Input placeholder="Email" prefix={<MailOutlined />} />
       </Form.Item>
 
-      <Form.Item<SignInDataTypes> name="password" rules={[{ required: true }]}>
+      <Form.Item<SignInData> name="password" rules={[{ required: true }]}>
         <Input.Password placeholder="Password" prefix={<LockOutlined />} />
       </Form.Item>
 
-      <Form.Item<SignInDataTypes> name="remember" valuePropName="checked">
+      <Form.Item<SignInData> name="remember" valuePropName="checked">
         <div className="flex">
           <Switch size="small" />
           <p className="ml-5 remember">Remember me</p>

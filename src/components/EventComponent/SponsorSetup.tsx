@@ -1,23 +1,94 @@
-import React from "react";
+import { FC, useState } from "react";
 import { Button, Form, Input, Card, Upload, Typography, Divider } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 
-import type { FormProps } from "antd";
+import type {
+  FormProps,
+  // GetProp,
+  UploadFile,
+  UploadProps,
+} from "antd";
 
 type FieldType = {
-  topBannerImage?: string;
-  topEventDescritionUrl?: string;
-  topUTMParameters?: string;
-  bottomBannerImage?: string;
-  bottomEventDescritionUrl?: string;
-  bottomUTMParameters?: string;
-  imageLandscape?: string;
-  imagePortrait?: string;
+  topBackgroundImage?: UploadFile[];
+  topTargetUrl?: string;
+  // topUTMParameters?: string;
+  bottomBackgroundImage?: UploadFile[];
+  bottomTargetUrl?: string;
+  // bottomUTMParameters?: string;
+  overlay?: UploadFile[];
+  overlayPortrait?: UploadFile[];
 };
 
-const SponsorSetup: React.FC = () => {
+const SponsorSetup: FC<any> = ({ setEventData, setKey, eventData }) => {
+  const [topImage, setTopImage] = useState<UploadFile[]>([]);
+  const [bottomImage, setBottomImage] = useState<UploadFile[]>([]);
+  const [overlay, setOverlay] = useState<UploadFile[]>([]);
+  const [overlayPortrait, setOverlayPortrait] = useState<UploadFile[]>([]);
+
+  const topImageProps: UploadProps = {
+    onRemove: () => {
+      setTopImage([]);
+    },
+    beforeUpload: (file) => {
+      setTopImage([file]);
+      return false;
+    },
+    fileList: topImage,
+  };
+
+  const bottomImageProps: UploadProps = {
+    onRemove: () => {
+      setBottomImage([]);
+    },
+    beforeUpload: (file) => {
+      setBottomImage([file]);
+      return false;
+    },
+    fileList: bottomImage,
+  };
+
+  const overlayProps: UploadProps = {
+    onRemove: () => {
+      setOverlay([]);
+    },
+    beforeUpload: (file) => {
+      setOverlay([file]);
+      return false;
+    },
+    fileList: overlay,
+  };
+
+  const overlayPortraitProps: UploadProps = {
+    onRemove: () => {
+      setOverlayPortrait([]);
+    },
+    beforeUpload: (file) => {
+      setOverlayPortrait([file]);
+      return false;
+    },
+    fileList: overlayPortrait,
+  };
+
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+    let { galleryConfig } = eventData;
+    galleryConfig = { ...galleryConfig, adsConfig: {}, overlayConfig: {} };
+    galleryConfig.adsConfig = {
+      topAdBanner: {
+        target: values.topTargetUrl,
+        backgroundImage: values.topBackgroundImage,
+      },
+      bottomAdBanner: {
+        target: values.bottomTargetUrl,
+        backgroundImage: values.bottomBackgroundImage,
+      },
+    };
+    galleryConfig.overlayConfig = {
+      overlay: values.overlay,
+      overlayPortrait: values.overlayPortrait,
+    };
+    setEventData({ ...eventData, galleryConfig });
+    setKey("4");
   };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
@@ -27,7 +98,6 @@ const SponsorSetup: React.FC = () => {
   };
 
   const normFile = (e: any) => {
-    console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -53,41 +123,39 @@ const SponsorSetup: React.FC = () => {
 
         <Form.Item<FieldType>
           label="Top Banner (1200 X 200 PX) - JPEG Only"
-          name="topBannerImage"
+          name="topBackgroundImage"
           rules={[
-            { required: true, message: "Please Choose Top Banner Image File!" },
+            {
+              required: false,
+              message: "Please Choose Top Banner Image File!",
+            },
           ]}
           getValueFromEvent={normFile}
         >
-          <Upload
-            maxCount={1}
-            name="topBannerImage"
-            action="/upload.do"
-            listType="picture"
-          >
+          <Upload {...topImageProps}>
             <Button icon={<UploadOutlined />}>Top Banner Image File</Button>
           </Upload>
         </Form.Item>
 
         <Form.Item<FieldType>
           label="Event Description URL"
-          name="topEventDescritionUrl"
+          name="topTargetUrl"
           rules={[
-            { required: true, message: "Please input Event Description URL!" },
+            { required: false, message: "Please input Event Description URL!" },
           ]}
         >
           <Input placeholder="Event Description URL" />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        {/* <Form.Item<FieldType>
           label="UTM Parameters"
           name="topUTMParameters"
           rules={[
-            { required: true, message: "Please input Event UTM Parameters!" },
+            { required: false, message: "Please input Event UTM Parameters!" },
           ]}
         >
           <Input placeholder="Event UTM Parameters" />
-        </Form.Item>
+        </Form.Item> */}
 
         <Typography.Title level={5}>Bottom Banner</Typography.Title>
 
@@ -95,76 +163,61 @@ const SponsorSetup: React.FC = () => {
 
         <Form.Item<FieldType>
           label="Bottom Banner (1200 X 200 PX) - JPEG Only"
-          name="bottomBannerImage"
+          name="bottomBackgroundImage"
           rules={[
-            { required: true, message: "Please Choose Bottom Banner File!" },
+            { required: false, message: "Please Choose Bottom Banner File!" },
           ]}
           getValueFromEvent={normFile}
         >
-          <Upload
-            maxCount={1}
-            name="bottomBannerImage"
-            action="/upload.do"
-            listType="picture"
-          >
+          <Upload {...bottomImageProps}>
             <Button icon={<UploadOutlined />}>Bottom Banner Image File</Button>
           </Upload>
         </Form.Item>
 
         <Form.Item<FieldType>
           label="Event Description URL"
-          name="bottomEventDescritionUrl"
+          name="bottomTargetUrl"
           rules={[
-            { required: true, message: "Please input Event Description URL!" },
+            { required: false, message: "Please input Event Description URL!" },
           ]}
         >
           <Input placeholder="Event Description URL" />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        {/* <Form.Item<FieldType>
           label="UTM Parameters"
           name="bottomUTMParameters"
           rules={[
-            { required: true, message: "Please input Event UTM Parameters!" },
+            { required: false, message: "Please input Event UTM Parameters!" },
           ]}
         >
           <Input placeholder="Event UTM Parameters" />
-        </Form.Item>
+        </Form.Item> */}
 
         <Typography.Title level={5}>Image Overlays</Typography.Title>
 
         <Form.Item<FieldType>
           label="Landscape (1200 X 200 PX) - JPEG Only"
-          name="imageLandscape"
+          name="overlay"
           rules={[
-            { required: true, message: "Please Choose Landscape Image File!" },
+            { required: false, message: "Please Choose Landscape Image File!" },
           ]}
           getValueFromEvent={normFile}
         >
-          <Upload
-            maxCount={1}
-            name="imageLandscape"
-            action="/upload.do"
-            listType="picture"
-          >
+          <Upload {...overlayProps}>
             <Button icon={<UploadOutlined />}>Landscape Image File</Button>
           </Upload>
         </Form.Item>
 
         <Form.Item<FieldType>
           label="Portrait (1200 X 200 PX) - JPEG Only"
-          name="imagePortrait"
+          name="overlayPortrait"
           rules={[
-            { required: true, message: "Please Choose Portrait Image File!" },
+            { required: false, message: "Please Choose Portrait Image File!" },
           ]}
           getValueFromEvent={normFile}
         >
-          <Upload
-            maxCount={1}
-            name="imagePortrait"
-            action="/upload.do"
-            listType="picture"
-          >
+          <Upload {...overlayPortraitProps}>
             <Button icon={<UploadOutlined />}>Top Banner Image File</Button>
           </Upload>
         </Form.Item>

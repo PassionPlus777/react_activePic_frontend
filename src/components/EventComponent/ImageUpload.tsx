@@ -12,16 +12,19 @@ const ImageUpload: React.FC = () => {
 
   const handleUpload = () => {
     const formData = new FormData();
-    fileList.forEach((file) => {
-      formData.append("files[]", file as FileType);
-    });
+
+    formData.append("file", fileList[0] as FileType);
+
     setUploading(true);
     // You can use any AJAX library you like
-    fetch("https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload", {
+    fetch("https://cms.activepix.com/api/siteAssets", {
       method: "POST",
       body: formData,
     })
-      .then((res) => res.json())
+      .then(async (res) => {
+        const resData = await res.json();
+        console.log(resData);
+      })
       .then(() => {
         setFileList([]);
         message.success("upload successfully.");
@@ -35,15 +38,11 @@ const ImageUpload: React.FC = () => {
   };
 
   const props: UploadProps = {
-    onRemove: (file) => {
-      const index = fileList.indexOf(file);
-      const newFileList = fileList.slice();
-      newFileList.splice(index, 1);
-      setFileList(newFileList);
+    onRemove: () => {
+      setFileList([]);
     },
     beforeUpload: (file) => {
-      setFileList([...fileList, file]);
-
+      setFileList([file]);
       return false;
     },
     fileList,

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState, FC } from "react";
 import { Button, Input, Card, Upload, Typography, Divider, Table } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadFile, UploadProps } from "antd";
+import { useNavigate } from "react-router-dom";
 
 interface tableData {
   participantNumber: string;
@@ -39,7 +40,16 @@ const columns = [
   },
 ];
 
-const ParticipantSetup: React.FC = () => {
+const ParticipantSetup: FC<any> = ({ eventData, dispatchCreateRace }) => {
+  const navigate = useNavigate();
+  // const event = useAppSelector((state) => state.event);
+
+  const [loading, setLoading] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   event.id && navigate("/home");
+  // }, [event]);
+
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [tableData, setTableData] = useState<tableData[]>([]);
 
@@ -63,7 +73,10 @@ const ParticipantSetup: React.FC = () => {
   const makeTableData = (fileData: any): tableData[] => {
     const dataArray: string[] = fileData.split(["\r\n"]);
 
-    if (dataArray.length) dataArray.shift();
+    if (dataArray.length) {
+      dataArray.pop();
+      dataArray.shift();
+    }
 
     return dataArray.map((item, index) => {
       const tempArray: string[] = item.split(",");
@@ -96,6 +109,24 @@ const ParticipantSetup: React.FC = () => {
     },
     fileList,
     accept: ".csv",
+  };
+
+  const makeRacerData = () => {
+    const racerData: any = {};
+    tableData.forEach((item: any) => {
+      delete item["key"];
+      const { participantNumber, ...rest } = item;
+      racerData[participantNumber] = rest;
+    });
+    return racerData;
+  };
+
+  const makeRequest = () => {
+    setLoading(true);
+    dispatchCreateRace({
+      data: { ...eventData, racerData: makeRacerData() },
+      navigate: navigate,
+    });
   };
 
   return (
@@ -139,9 +170,11 @@ eg. 1, John, Doe, 5km, 30:00"
         type="primary"
         htmlType="submit"
         className="w-full mt-5"
+        loading={loading}
+        onClick={makeRequest}
         disabled={!tableData.length}
       >
-        Save And Progress
+        Save
       </Button>
     </Card>
   );

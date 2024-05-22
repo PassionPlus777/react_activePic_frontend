@@ -1,23 +1,28 @@
-import React from "react";
+import { FC, useState } from "react";
 import {
   Button,
   Form,
-  Input,
+  // Input,
   Card,
   Upload,
   Row,
   Col,
-  ColorPicker,
-  Typography,
+  // ColorPicker,
+  // Typography,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 
-import type { FormProps } from "antd";
+import type {
+  FormProps,
+  // GetProp,
+  UploadFile,
+  UploadProps,
+} from "antd";
 
 type FieldType = {
-  eventLogo?: string;
-  headerImage?: string;
-  eventImages?: string;
+  eventLogo?: UploadFile[];
+  headerBackgroundImage?: UploadFile[];
+  images?: UploadFile[];
   galleryPrimaryColour?: string;
   gallerySecondaryColour?: string;
   galleryThirdColour?: string;
@@ -29,9 +34,55 @@ type FieldType = {
   eventHashtags?: string;
 };
 
-const GallerySetup: React.FC = () => {
+const GallerySetup: FC<any> = ({ setEventData, setKey, eventData }) => {
+  const [eventLogo, setEventLogo] = useState<UploadFile[]>([]);
+  const [headerBack, setHeaderBack] = useState<UploadFile[]>([]);
+  const [images, setImages] = useState<UploadFile[]>([]);
+
+  const eventLogoProps: UploadProps = {
+    onRemove: () => {
+      setEventLogo([]);
+    },
+    beforeUpload: (file) => {
+      setEventLogo([file]);
+      return false;
+    },
+    fileList: eventLogo,
+  };
+
+  const headerBackProps: UploadProps = {
+    onRemove: () => {
+      setHeaderBack([]);
+    },
+    beforeUpload: (file) => {
+      setHeaderBack([file]);
+      return false;
+    },
+    fileList: headerBack,
+  };
+
+  const imagesProps: UploadProps = {
+    onRemove: (file) => {
+      const index = images.indexOf(file);
+      const newImages = images.slice();
+      newImages.splice(index, 1);
+      setImages(newImages);
+    },
+    beforeUpload: (file) => {
+      if (images.length > 4) {
+        const newImages = images.slice();
+        newImages.pop();
+        setImages([...newImages, file]);
+      } else setImages([...images, file]);
+      return false;
+    },
+    fileList: images,
+  };
+
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+    const { images, ...rest } = values;
+    setEventData({ ...eventData, images, galleryConfig: rest });
+    setKey("3");
   };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
@@ -41,7 +92,6 @@ const GallerySetup: React.FC = () => {
   };
 
   const normFile = (e: any) => {
-    console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -67,16 +117,11 @@ const GallerySetup: React.FC = () => {
               label="Event Logo"
               name="eventLogo"
               rules={[
-                { required: true, message: "Please Choose Event Logo File!" },
+                { required: false, message: "Please Choose Event Logo File!" },
               ]}
               getValueFromEvent={normFile}
             >
-              <Upload
-                maxCount={1}
-                name="eventLogo"
-                action="/upload.do"
-                listType="picture"
-              >
+              <Upload {...eventLogoProps}>
                 <Button icon={<UploadOutlined />}>Event Logo File</Button>
               </Upload>
             </Form.Item>
@@ -84,18 +129,16 @@ const GallerySetup: React.FC = () => {
           <Col span={11}>
             <Form.Item<FieldType>
               label="Header Image"
-              name="headerImage"
+              name="headerBackgroundImage"
               rules={[
-                { required: true, message: "Please Choose Header Image File!" },
+                {
+                  required: false,
+                  message: "Please Choose Header Image File!",
+                },
               ]}
               getValueFromEvent={normFile}
             >
-              <Upload
-                maxCount={1}
-                name="headerImage"
-                action="/upload.do"
-                listType="picture"
-              >
+              <Upload {...headerBackProps}>
                 <Button icon={<UploadOutlined />}>Header Image File</Button>
               </Upload>
             </Form.Item>
@@ -106,24 +149,22 @@ const GallerySetup: React.FC = () => {
           <Col span={24}>
             <Form.Item<FieldType>
               label="Event Images (Max 5 Images)"
-              name="eventImages"
+              name="images"
               rules={[
-                { required: true, message: "Please Choose Event Image Files!" },
+                {
+                  required: false,
+                  message: "Please Choose Event Image Files!",
+                },
               ]}
               getValueFromEvent={normFile}
             >
-              <Upload
-                maxCount={5}
-                name="eventImages"
-                action="/upload.do"
-                listType="picture"
-              >
+              <Upload {...imagesProps}>
                 <Button icon={<UploadOutlined />}>Event Image File</Button>
               </Upload>
             </Form.Item>
           </Col>
         </Row>
-
+        {/* 
         <Typography.Text>Gallery Colour Settings</Typography.Text>
 
         <Row justify={"space-between"} className="mt-3">
@@ -157,7 +198,7 @@ const GallerySetup: React.FC = () => {
           label="Event Website"
           name="eventWebsite"
           rules={[
-            { required: true, message: "Please input Event Website URL!" },
+            { required: false, message: "Please input Event Website URL!" },
           ]}
         >
           <Input placeholder="Event Website URL" />
@@ -168,7 +209,7 @@ const GallerySetup: React.FC = () => {
         <Form.Item<FieldType>
           name="eventSocialMediaFacebook"
           rules={[
-            { required: true, message: "Please input Fackbook Profile URL!" },
+            { required: false, message: "Please input Fackbook Profile URL!" },
           ]}
           className="mt-3"
         >
@@ -178,7 +219,7 @@ const GallerySetup: React.FC = () => {
         <Form.Item<FieldType>
           name="eventSocialMediaInstagram"
           rules={[
-            { required: true, message: "Please input Instagram UserName!" },
+            { required: false, message: "Please input Instagram UserName!" },
           ]}
         >
           <Input placeholder="Instagram UserName" />
@@ -186,7 +227,9 @@ const GallerySetup: React.FC = () => {
 
         <Form.Item<FieldType>
           name="eventSocialMediaTiktok"
-          rules={[{ required: true, message: "Please input Tiktok UserName!" }]}
+          rules={[
+            { required: false, message: "Please input Tiktok UserName!" },
+          ]}
         >
           <Input placeholder="Tiktok UserName" />
         </Form.Item>
@@ -194,7 +237,7 @@ const GallerySetup: React.FC = () => {
         <Form.Item<FieldType>
           name="eventSocialMediaXorTwitter"
           rules={[
-            { required: true, message: "Please input X / Twitter UserName!" },
+            { required: false, message: "Please input X / Twitter UserName!" },
           ]}
         >
           <Input placeholder="X / Twitter UserName" />
@@ -202,10 +245,10 @@ const GallerySetup: React.FC = () => {
 
         <Form.Item<FieldType>
           name="eventHashtags"
-          rules={[{ required: true, message: "Please Event HashTags!" }]}
+          rules={[{ required: false, message: "Please Event HashTags!" }]}
         >
           <Input placeholder="Event HashTags" />
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item>
           <Button type="primary" htmlType="submit" className="w-full">

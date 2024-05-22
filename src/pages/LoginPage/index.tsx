@@ -1,14 +1,14 @@
 import LoginComponent from "@/components/LoginComponent";
 
 import { useAppDispatch } from "@/store";
-import { SignInDataTypes } from "@/types";
+import { SignInData } from "@/types";
 
 import { signIn } from "@/store/authSlice";
 
 function LoginPage() {
   const dispatch = useAppDispatch();
 
-  const dispatchSignIn = (data: SignInDataTypes) => {
+  const dispatchSignIn = (data: SignInData) => {
     dispatch(signIn(data));
   };
 

@@ -1,7 +1,8 @@
+import { baseAPIUrl } from "@/config";
 import axios from "axios";
 
 // Setting a base URL for all requests
-axios.defaults.baseURL = "https://cms.activepix.com/api";
+axios.defaults.baseURL = baseAPIUrl;
 
 // Setting headers common to all requests
 axios.defaults.headers.common["Authorization"] =

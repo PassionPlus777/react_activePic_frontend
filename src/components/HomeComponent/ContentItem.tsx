@@ -9,7 +9,7 @@ const ContentItem: FC<ContentItemDataTypes> = ({ event }) => {
   return (
     <div className="content-item flex justify-between items-center p-2 px-4 rounded-md mt-3 relative">
       <img
-        src={"images/item_picture.jpg"}
+        src={`https://cms.activepix.com/siteAssets/${event.image.filename}`}
         alt="Item picture"
         className="rounded-md cursor-pointer"
         width={90}

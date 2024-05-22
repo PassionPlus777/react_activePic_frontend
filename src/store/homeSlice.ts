@@ -5,13 +5,13 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 
-import { HomeSliceState } from "@/types";
+import { HomeSlice } from "@/types";
 import { request } from "@/utils";
 
 // import { showMessage } from "./messageSlice";
 
 // Define the initial state using that type
-const initialState: HomeSliceState = {
+const initialState: HomeSlice = {
   docs: [],
   totalDocs: 0,
   limit: 0,
@@ -34,13 +34,13 @@ export const fetchAllEvents = createAsyncThunk("/races", async () => {
 });
 
 export const homeSlice = createSlice({
-  name: "auth",
+  name: "home",
   initialState,
   reducers: {},
-  extraReducers: (builder: ActionReducerMapBuilder<HomeSliceState>) => {
+  extraReducers: (builder: ActionReducerMapBuilder<HomeSlice>) => {
     builder.addCase(
       fetchAllEvents.fulfilled,
-      (state, action: PayloadAction<HomeSliceState>) => {
+      (state, action: PayloadAction<HomeSlice>) => {
         state.docs = action.payload.docs;
         state.totalDocs = action.payload.totalDocs;
         state.limit = action.payload.limit;

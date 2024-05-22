@@ -1,12 +1,8 @@
 import { FC, useEffect } from "react";
 import { message } from "antd";
-import { MessageDataTypes } from "@/types";
+import { MessageData } from "@/types";
 
-const MessageComponent: FC<MessageDataTypes> = ({
-  datetime,
-  type,
-  content,
-}) => {
+const MessageComponent: FC<MessageData> = ({ datetime, type, content }) => {
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {

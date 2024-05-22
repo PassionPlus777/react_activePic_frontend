@@ -6,26 +6,50 @@ import Activition from "./Activation";
 import ImageUpload from "./ImageUpload";
 import Statistics from "./Statistics";
 
-const TabConfigs = () => [
+const TabConfigs = (
+  setEventData: any,
+  setKey: any,
+  eventData: any,
+  dispatchCreateRace: any
+) => [
   {
     key: "1",
     label: "INITIAL SETUP",
-    children: <InitialSetup />,
+    children: <InitialSetup setEventData={setEventData} setKey={setKey} />,
   },
   {
     key: "2",
     label: "GALLERY SETUP",
-    children: <GallerySetup />,
+    children: (
+      <GallerySetup
+        setEventData={setEventData}
+        setKey={setKey}
+        eventData={eventData}
+      />
+    ),
   },
   {
     key: "3",
     label: "SPONSOR SETUP",
-    children: <SponsorSetup />,
+    children: (
+      <SponsorSetup
+        setEventData={setEventData}
+        setKey={setKey}
+        eventData={eventData}
+      />
+    ),
   },
   {
     key: "4",
     label: "PARTICIPANT SETUP",
-    children: <ParticipantSetup />,
+    children: (
+      <ParticipantSetup
+        setEventData={setEventData}
+        setKey={setKey}
+        eventData={eventData}
+        dispatchCreateRace={dispatchCreateRace}
+      />
+    ),
   },
   {
     key: "5",

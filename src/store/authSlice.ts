@@ -4,9 +4,12 @@ import {
   createAsyncThunk,
   createSlice,
 } from "@reduxjs/toolkit";
+import qs from "qs";
+
+// import { fetchAllEvents } from "@/store/homeSlice";
 
 import { request } from "@/utils";
-import { SignInDataTypes } from "@/types";
+import { SignInData } from "@/types";
 
 import { showMessage } from "./messageSlice";
 
@@ -17,6 +20,7 @@ interface AuthState {
     id: string;
     role: string;
     email: string;
+    ownedRaces: any;
   };
   error: { content?: string; datetime: number };
 }
@@ -28,6 +32,7 @@ const initialState: AuthState = {
     id: "",
     role: "",
     email: "",
+    ownedRaces: [],
   },
   error: { content: "", datetime: 0 },
 };
@@ -40,7 +45,45 @@ export const getMe = createAsyncThunk<any, void, { rejectValue: string }>(
         method: "GET",
         url: "/users/me",
       });
-      return res.data; // Return the response data
+
+      if (res.data.user.ownedRaces.length) {
+        const idArray = res.data.user.ownedRaces.map(
+          (race: any) => race.galleryConfig.eventLogo
+        );
+
+        const query = {
+          id: {
+            in: [...idArray],
+          },
+        };
+
+        const stringifiedQuery = qs.stringify(
+          {
+            where: query, // ensure that `qs` adds the `where` property, too!
+          },
+          { addQueryPrefix: true }
+        );
+
+        const result = await request({
+          method: "GET",
+          url: `/siteAssets${stringifiedQuery}`,
+        });
+
+        if (result.data.docs.length) {
+          const tempData = res.data.user;
+          tempData.ownedRaces = tempData.ownedRaces.map((race: any) => {
+            return {
+              ...race,
+              image: result.data.docs.filter(
+                (doc: any) => doc.id === race.galleryConfig.eventLogo
+              )[0],
+            };
+          });
+          return tempData;
+        }
+      }
+
+      return res.data.user; // Return the response data
     } catch (error: any) {
       // Use rejectWithValue to return a custom payload as the rejected action
       return rejectWithValue("Login failed"); // Customize the error message
@@ -50,7 +93,7 @@ export const getMe = createAsyncThunk<any, void, { rejectValue: string }>(
 
 export const signIn = createAsyncThunk<
   boolean,
-  SignInDataTypes,
+  SignInData,
   { rejectValue: string }
 >("users/login", async ({ email, password }, { dispatch, rejectWithValue }) => {
   try {
@@ -63,6 +106,45 @@ export const signIn = createAsyncThunk<
       },
     });
 
+    localStorage.setItem("axios_token", res.data.token);
+
+    if (res.data.user.ownedRaces.length) {
+      const idArray = res.data.user.ownedRaces.map(
+        (race: any) => race.galleryConfig.eventLogo
+      );
+
+      const query = {
+        id: {
+          in: [...idArray],
+        },
+      };
+
+      const stringifiedQuery = qs.stringify(
+        {
+          where: query, // ensure that `qs` adds the `where` property, too!
+        },
+        { addQueryPrefix: true }
+      );
+
+      const result = await request({
+        method: "GET",
+        url: `/siteAssets${stringifiedQuery}`,
+      });
+
+      if (result.data.docs.length) {
+        const tempData = res.data.user;
+        tempData.ownedRaces = tempData.ownedRaces.map((race: any) => {
+          return {
+            ...race,
+            image: result.data.docs.filter(
+              (doc: any) => doc.id === race.galleryConfig.eventLogo
+            )[0],
+          };
+        });
+        return tempData;
+      }
+    }
+
     dispatch(
       showMessage({
         datetime: Date.now(),
@@ -71,8 +153,7 @@ export const signIn = createAsyncThunk<
       })
     );
 
-    localStorage.setItem("axios_token", res.data.token);
-    return true; // Explicitly return true
+    return res.data.user; // Explicitly return true
   } catch (error: any) {
     dispatch(
       showMessage({
@@ -91,13 +172,12 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder: ActionReducerMapBuilder<AuthState>) => {
     builder
-      .addCase(signIn.fulfilled, (state, action: PayloadAction<boolean>) => {
-        state.loginStatus = action.payload;
+      .addCase(signIn.fulfilled, (state, action: PayloadAction<any>) => {
+        state.user = action.payload;
+        state.loginStatus = true;
       })
       .addCase(getMe.fulfilled, (state, action: PayloadAction<any>) => {
-        console.log(action.payload.user);
-
-        state.user = action.payload.user;
+        state.user = action.payload;
         state.loginStatus = true;
       });
   },
