@@ -108,6 +108,14 @@ export const signIn = createAsyncThunk<
 
     localStorage.setItem("axios_token", res.data.token);
 
+    dispatch(
+      showMessage({
+        datetime: Date.now(),
+        type: "success",
+        content: "Log in successfully",
+      })
+    );
+
     if (res.data.user.ownedRaces.length) {
       const idArray = res.data.user.ownedRaces.map(
         (race: any) => race.galleryConfig.eventLogo
@@ -144,14 +152,6 @@ export const signIn = createAsyncThunk<
         return tempData;
       }
     }
-
-    dispatch(
-      showMessage({
-        datetime: Date.now(),
-        type: "success",
-        content: "Log in successfully",
-      })
-    );
 
     return res.data.user; // Explicitly return true
   } catch (error: any) {

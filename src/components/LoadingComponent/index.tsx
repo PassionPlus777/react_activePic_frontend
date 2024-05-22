@@ -1,5 +1,3 @@
-import React from "react";
-
 function LoadingComponent() {
   return (
     <div className="pageloder">

@@ -1,16 +1,16 @@
 import React from "react";
 import {
   Button,
-  Form,
+  // Form,
   Input,
   Card,
-  Upload,
+  // Upload,
   Typography,
   Divider,
   Row,
   Col,
 } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+// import { UploadOutlined } from "@ant-design/icons";
 
 const Activition: React.FC = () => {
   return (

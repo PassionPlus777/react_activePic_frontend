@@ -1,5 +1,3 @@
-import React from "react";
-
 const ContentUploadButton = () => {
   return (
     <div className={`flex items-center rounded-3xl py-2 content-upload-button`}>
