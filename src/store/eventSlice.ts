@@ -52,7 +52,7 @@ const initialState: Race = {
 
 export const createRace = createAsyncThunk<any, any, { rejectValue: string }>(
   "races",
-  async ({ data, navigate }, { dispatch, rejectWithValue }) => {
+  async ({ data, navigate, id, ownedRaces }, { dispatch, rejectWithValue }) => {
     try {
       if (
         Array.isArray(data.galleryConfig.eventLogo) &&
@@ -199,6 +199,12 @@ export const createRace = createAsyncThunk<any, any, { rejectValue: string }>(
       // }
 
       const res = await request({ url: "/races", method: "POST", data: data });
+
+      await request({
+        url: `/users/${id}`,
+        method: "PATCH",
+        data: { ownedRaces: [...ownedRaces, res.data.doc.id] },
+      });
 
       dispatch(
         showMessage({

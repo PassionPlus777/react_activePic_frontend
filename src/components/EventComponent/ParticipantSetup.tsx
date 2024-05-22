@@ -3,6 +3,7 @@ import { Button, Input, Card, Upload, Typography, Divider, Table } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadFile, UploadProps } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "@/store";
 
 interface tableData {
   participantNumber: string;
@@ -42,13 +43,9 @@ const columns = [
 
 const ParticipantSetup: FC<any> = ({ eventData, dispatchCreateRace }) => {
   const navigate = useNavigate();
-  // const event = useAppSelector((state) => state.event);
+  const { user } = useAppSelector((state) => state.auth);
 
   const [loading, setLoading] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   event.id && navigate("/home");
-  // }, [event]);
 
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [tableData, setTableData] = useState<tableData[]>([]);
@@ -121,11 +118,17 @@ const ParticipantSetup: FC<any> = ({ eventData, dispatchCreateRace }) => {
     return racerData;
   };
 
+  const makeOwnedRaceIds = (data = []) => {
+    return data.map((item: any) => item.id);
+  };
+
   const makeRequest = () => {
     setLoading(true);
     dispatchCreateRace({
       data: { ...eventData, racerData: makeRacerData() },
       navigate: navigate,
+      id: user.id,
+      ownedRaces: makeOwnedRaceIds(user.ownedRaces),
     });
   };
 
