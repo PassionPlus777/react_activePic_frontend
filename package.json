@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "setup": "npm install && npm run build",
+    "start": "vite --port 3001 --host",
     "build": "tsc && vite build",
     "build:tailwind": "tsc --project tsconfig.tailwind.json && tailwindcss build src/index.css -o src/output.css",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
