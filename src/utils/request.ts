@@ -8,7 +8,7 @@ axios.defaults.baseURL = baseAPIUrl;
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("axios_token");
 axios.defaults.headers.post["Content-Type"] = "application/json";
-
+axios.defaults.withCredentials = true;
 interface requestProps {
   method: "GET" | "POST" | "PATCH" | "DELETE";
   url: string;

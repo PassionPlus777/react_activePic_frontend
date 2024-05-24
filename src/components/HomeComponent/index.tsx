@@ -1,11 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import { Col, Row, Input, Button } from "antd";
 import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 import ContentItem from "./ContentItem";
 import SpinComponent from "../SpinComponent";
 
 const HomeComponent: FC<any> = ({ ownedRaces }) => {
+  const navigate = useNavigate();
   const [events, setEvents] = useState<any[]>([]);
 
   useEffect(() => {
@@ -28,6 +30,7 @@ const HomeComponent: FC<any> = ({ ownedRaces }) => {
               type="primary"
               icon={<PlusCircleOutlined />}
               className="px-6"
+              onClick={() => navigate("/event")}
             >
               New Event
             </Button>

@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "dev": "vite",
     "setup": "npm install && npm run build",
     "start": "vite --port 3001 --host",
     "build": "tsc && vite build",
     "build:tailwind": "tsc --project tsconfig.tailwind.json && tailwindcss build src/index.css -o src/output.css",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview --port 3001 --host"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
@@ -42,5 +43,6 @@
     "less": "^4.2.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
-  }
+  },
+  "proxy": "https://cms.activepix.com"
 }

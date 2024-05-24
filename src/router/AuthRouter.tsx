@@ -22,7 +22,7 @@ function AuthRouter() {
       </Col>
       <Col span={19} className="flex flex-col h-full w-full">
         <div className="content-part p-3 text-white text-center rounded-md font-bold">
-          {location.pathname === "/home" && (
+          {location.pathname === "/" && (
             <>
               Event Management <span className="text-blue-400">Dashboard</span>
             </>
@@ -51,12 +51,12 @@ function AuthRouter() {
         </div>
         <div className="flex-1 flex-wrap content-part p-5 rounded-md mt-8 overflow-y-scroll">
           <Routes>
-            <Route path="/home" element={<HomePage />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/event" element={<EventPage />} />
             <Route path="/marker" element={<MarkerPage />} />
             <Route path="/report" element={<ReportComponent />} />
             <Route path="/support" element={<SupportComponent />} />
-            <Route path="*" element={<Navigate to="/home" replace={true} />} />
+            <Route path="*" element={<Navigate to="/" replace={true} />} />
           </Routes>
         </div>
       </Col>

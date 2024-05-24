@@ -9,7 +9,7 @@ const ContentItem: FC<ContentItemDataTypes> = ({ event }) => {
   return (
     <div className="content-item flex justify-between items-center p-2 px-4 rounded-md mt-3 relative">
       <img
-        src={`https://cms.activepix.com/siteAssets/${event?.image?.filename}`}
+        src={`https://cms.activepix.com/siteAssets/${event?.image.filename}`}
         alt="Item picture"
         className="rounded-md cursor-pointer"
         width={90}
@@ -27,7 +27,7 @@ const ContentItem: FC<ContentItemDataTypes> = ({ event }) => {
         </p>
       </div>
       <ContentItemButton name="View Map" icon="icon (23).png" />
-      <ContentItemButton name="Event Setup" />
+      <ContentItemButton name="Event Setup" pathname="/event" />
       <ContentUploadButton />
     </div>
   );

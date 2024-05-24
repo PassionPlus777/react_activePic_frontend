@@ -2,7 +2,7 @@ export default [
   {
     name: "My Events",
     icon: "icon (15).png",
-    pathname: "/event",
+    pathname: "/",
   },
   {
     name: "Learn ActivePix",

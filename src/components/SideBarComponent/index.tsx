@@ -8,7 +8,7 @@ function SideBar() {
   return (
     <>
       <div>
-        <Link to="/home">
+        <Link to="/">
           <div className="flex justify-center p-3 rounded-md mark sideBar">
             <img src={"/images/mark.png"} alt="mark" height={"80px"} />
           </div>
