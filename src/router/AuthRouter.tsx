@@ -1,6 +1,9 @@
-import { lazy } from "react";
+import { lazy, useEffect } from "react";
 import { Col, Row } from "antd";
 import { Route, Routes, useLocation, Navigate } from "react-router-dom";
+
+import { useAppDispatch } from "@/store";
+import { getMe } from "@/store/authSlice";
 
 import SideBarComponent from "@/components/SideBarComponent";
 import MarkerPage from "@/pages/MarkerPage";
@@ -12,6 +15,13 @@ const EventPage = lazy(() => import("@/pages/EventPage"));
 
 function AuthRouter() {
   const location = useLocation();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
+
   return (
     <Row className="w-full h-full home-component p-5 justify-around">
       <Col

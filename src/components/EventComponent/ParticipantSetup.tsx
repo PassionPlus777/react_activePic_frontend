@@ -17,27 +17,27 @@ const columns = [
   {
     title: "Participant Number",
     dataIndex: "participantNumber",
-    key: "1",
+    key: "participantNumber",
   },
   {
     title: "First Name",
     dataIndex: "firstName",
-    key: "2",
+    key: "firstName",
   },
   {
     title: "Last Name",
     dataIndex: "lastName",
-    key: "3",
+    key: "lastName",
   },
   {
     title: "Distance",
     dataIndex: "distance",
-    key: "4",
+    key: "distance",
   },
   {
     title: "Time",
     dataIndex: "time",
-    key: "5",
+    key: "time",
   },
 ];
 
@@ -84,7 +84,7 @@ const ParticipantSetup: FC<any> = ({ eventData, dispatchCreateRace }) => {
         lastName: tempArray.length > 2 ? tempArray[2] : "",
         distance: tempArray.length > 3 ? tempArray[3] : "",
         time: tempArray.length > 4 ? tempArray[4] : "",
-        key: index,
+        key: `${index}`,
       };
     });
   };
@@ -175,7 +175,7 @@ eg. 1, John, Doe, 5km, 30:00"
         className="w-full mt-5"
         loading={loading}
         onClick={makeRequest}
-        disabled={!tableData.length}
+        // disabled={!tableData.length}
       >
         Save
       </Button>

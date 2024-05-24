@@ -5,6 +5,10 @@ import { SidebarButton } from "../ButtonComponent";
 import buttonItems from "../HomeComponent/SiceBarConfig";
 
 function SideBar() {
+  const logOut = () => {
+    localStorage.removeItem("axios_token");
+    location.reload();
+  };
   return (
     <>
       <div>
@@ -25,10 +29,10 @@ function SideBar() {
         </div>
       </div>
       <div className="set-icon mb-4 mx-2">
-        <SidebarButton name="Setting" pathname={""} icon="icon (17).png" />
-        <Link to="/login">
-          <SidebarButton name="Log Out" pathname={""} icon="icon (19).png" />
-        </Link>
+        <SidebarButton name="Setting" icon="icon (17).png" />
+        <div onClick={logOut}>
+          <SidebarButton name="Log Out" icon="icon (19).png" />
+        </div>
       </div>
     </>
   );

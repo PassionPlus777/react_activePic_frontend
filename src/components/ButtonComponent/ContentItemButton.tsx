@@ -1,23 +1,17 @@
-import { FC } from "react";
-import { useNavigate } from "react-router-dom";
+import { FC, MouseEventHandler } from "react";
 
 interface ButtonProps {
   name: string;
   icon?: string;
-  pathname?: string;
+  onClick?: MouseEventHandler;
 }
 
-const ContentItemButton: FC<ButtonProps> = ({
-  name,
-  icon = "",
-  pathname = "",
-}) => {
-  const navigate = useNavigate();
+const ContentItemButton: FC<ButtonProps> = ({ name, icon = "", onClick }) => {
   return (
     <div
       className={`flex items-center p-2 bg-white rounded-md contentitem-button 
       }`}
-      onClick={() => pathname && navigate(pathname)}
+      onClick={onClick}
     >
       {icon && <img src={`icons/${icon}`} alt="event" />}
       <p className="font-sans m-auto text-center font-semibold">{name}</p>

@@ -4,10 +4,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 interface ButtonProps {
   name: string;
   icon: string;
-  pathname: string;
+  pathname?: string;
 }
 
-const ButtonComponent: FC<ButtonProps> = ({ name, icon, pathname }) => {
+const ButtonComponent: FC<ButtonProps> = ({ name, icon, pathname = "" }) => {
   const navigate = useNavigate();
   const location = useLocation();
 

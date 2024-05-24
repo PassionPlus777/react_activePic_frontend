@@ -44,6 +44,7 @@ export const getMe = createAsyncThunk<any, void, { rejectValue: string }>(
       const res = await request({
         method: "GET",
         url: "/users/me",
+        auth: true,
       });
 
       if (res.data.user.ownedRaces.length) {
@@ -112,46 +113,9 @@ export const signIn = createAsyncThunk<
       showMessage({
         datetime: Date.now(),
         type: "success",
-        content: "Log in successfully",
+        content: "Log in with token successfully",
       })
     );
-
-    if (res.data.user.ownedRaces.length) {
-      const idArray = res.data.user.ownedRaces.map(
-        (race: any) => race.galleryConfig.eventLogo
-      );
-
-      const query = {
-        id: {
-          in: [...idArray],
-        },
-      };
-
-      const stringifiedQuery = qs.stringify(
-        {
-          where: query, // ensure that `qs` adds the `where` property, too!
-        },
-        { addQueryPrefix: true }
-      );
-
-      const result = await request({
-        method: "GET",
-        url: `/siteAssets${stringifiedQuery}`,
-      });
-
-      if (result.data.docs.length) {
-        const tempData = res.data.user;
-        tempData.ownedRaces = tempData.ownedRaces.map((race: any) => {
-          return {
-            ...race,
-            image: result.data.docs.filter(
-              (doc: any) => doc.id === race.galleryConfig.eventLogo
-            )[0],
-          };
-        });
-        return tempData;
-      }
-    }
 
     return res.data.user; // Explicitly return true
   } catch (error: any) {
@@ -172,8 +136,7 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder: ActionReducerMapBuilder<AuthState>) => {
     builder
-      .addCase(signIn.fulfilled, (state, action: PayloadAction<any>) => {
-        state.user = action.payload;
+      .addCase(signIn.fulfilled, (state) => {
         state.loginStatus = true;
       })
       .addCase(getMe.fulfilled, (state, action: PayloadAction<any>) => {
