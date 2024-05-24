@@ -117,7 +117,7 @@ const GallerySetup: FC<any> = ({ setEventData, setKey, eventData }) => {
               label="Event Logo"
               name="eventLogo"
               rules={[
-                { required: false, message: "Please Choose Event Logo File!" },
+                { required: true, message: "Please Choose Event Logo File!" },
               ]}
               getValueFromEvent={normFile}
             >

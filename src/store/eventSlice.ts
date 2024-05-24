@@ -76,7 +76,7 @@ export const createRace = createAsyncThunk<any, any, { rejectValue: string }>(
         data.galleryConfig.eventLogo.length
       ) {
         data.galleryConfig.eventLogo = await uploadAsset(
-          data.galleryConfig.eventLogo[0].originFileObj
+          data.galleryConfig.eventLogo[0]
         );
       }
 
@@ -85,7 +85,7 @@ export const createRace = createAsyncThunk<any, any, { rejectValue: string }>(
         data.galleryConfig.headerBackgroundImage.length
       ) {
         data.galleryConfig.headerBackgroundImage = await uploadAsset(
-          data.galleryConfig.headerBackgroundImage[0].originFileObj
+          data.galleryConfig.headerBackgroundImage[0]
         );
       }
 
@@ -98,7 +98,6 @@ export const createRace = createAsyncThunk<any, any, { rejectValue: string }>(
         data.galleryConfig.adsConfig.topAdBanner.backgroundImage =
           await uploadAsset(
             data.galleryConfig.adsConfig.topAdBanner.backgroundImage[0]
-              .originFileObj
           );
       }
 
@@ -111,7 +110,6 @@ export const createRace = createAsyncThunk<any, any, { rejectValue: string }>(
         data.galleryConfig.adsConfig.bottomAdBanner.backgroundImage =
           await uploadAsset(
             data.galleryConfig.adsConfig.bottomAdBanner.backgroundImage[0]
-              .originFileObj
           );
       }
 
@@ -120,7 +118,7 @@ export const createRace = createAsyncThunk<any, any, { rejectValue: string }>(
         data.galleryConfig.overlayConfig.overlay.length
       ) {
         data.galleryConfig.overlayConfig.overlay = await uploadAsset(
-          data.galleryConfig.overlayConfig.overlay[0].originFileObj
+          data.galleryConfig.overlayConfig.overlay[0]
         );
       }
 
@@ -129,7 +127,7 @@ export const createRace = createAsyncThunk<any, any, { rejectValue: string }>(
         data.galleryConfig.overlayConfig.overlayPortrait.length
       ) {
         data.galleryConfig.overlayConfig.overlayPortrait = await uploadAsset(
-          data.galleryConfig.overlayConfig.overlayPortrait[0].originFileObj
+          data.galleryConfig.overlayConfig.overlayPortrait[0]
         );
       }
 
