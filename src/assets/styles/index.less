@@ -164,6 +164,39 @@ table {
     .user-email {
       color: #ef4100;
     }
+    .sidebar-button {
+      p {
+        font-size: 12px;
+      }
+      color: #343334;
+      background: linear-gradient(86.52deg, #e9eff2 -1.15%, #878a8c 126.02%);
+      text-decoration: none;
+      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+
+      &:hover {
+        background: linear-gradient(86.52deg, #e9eff2 87.87%, #878a8c 126.02%);
+        box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.25);
+        color: #343334;
+      }
+    }
+
+    .selected-button {
+      background: #1e799b;
+      color: white;
+    }
+
+    .default-button {
+      background: linear-gradient(
+        to right,
+        rgba(233, 239, 242, 1),
+        rgba(135, 138, 140, 0.7)
+      );
+    }
+
+    .clear-button {
+      background: rgba(233, 239, 242, 1);
+    }
   }
   .set-icon {
     .ant-btn-icon {
@@ -195,38 +228,6 @@ table {
 
 .remember {
   margin-top: -3px;
-}
-.sidebar-button {
-  p {
-    font-size: 12px;
-  }
-  text-decoration: none;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.25);
-  }
-}
-
-.selected-button {
-  background: linear-gradient(
-    to right,
-    rgba(255, 209, 52, 1),
-    rgba(157, 128, 29, 0.7)
-  );
-}
-
-.default-button {
-  background: linear-gradient(
-    to right,
-    rgba(233, 239, 242, 1),
-    rgba(135, 138, 140, 0.7)
-  );
-}
-
-.clear-button {
-  background: rgba(233, 239, 242, 1);
 }
 
 .contentitem-button {
