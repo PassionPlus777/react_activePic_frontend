@@ -18,7 +18,6 @@ const GoogleSignIn: React.FC = () => {
 
   function handleCredentialResponse(response: any) {
     console.log("Encoded JWT ID token: " + response.credential);
-    // Use the Google ID token to authenticate the user in your backend
   }
 
   return <div id="signInDiv"></div>;

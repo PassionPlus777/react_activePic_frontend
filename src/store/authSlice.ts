@@ -130,6 +130,47 @@ export const signIn = createAsyncThunk<
   }
 });
 
+export const signUp = createAsyncThunk<
+  boolean,
+  SignInData,
+  { rejectValue: string }
+>(
+  "users/register",
+  async ({ email, password }, { dispatch, rejectWithValue }) => {
+    try {
+      const res = await request({
+        method: "POST",
+        url: "/users/login",
+        data: {
+          email,
+          password,
+        },
+      });
+
+      localStorage.setItem("axios_token", res.data.token);
+
+      dispatch(
+        showMessage({
+          datetime: Date.now(),
+          type: "success",
+          content: "Log in with token successfully",
+        })
+      );
+
+      return res.data.user; // Explicitly return true
+    } catch (error: any) {
+      dispatch(
+        showMessage({
+          datetime: Date.now(),
+          type: "error",
+          content: error.response.data.errors[0].message,
+        })
+      );
+      return rejectWithValue("Login faild"); // Reject with value (you can customize the error message)
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,

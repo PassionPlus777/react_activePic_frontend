@@ -210,8 +210,20 @@ export interface SignInData {
   remember?: string;
 }
 
-export interface SignFunc {
+export interface SignUpData {
+  firstName?: string;
+  surName?: string;
+  email?: string;
+  password?: string;
+  cPassword?: string;
+}
+
+export interface SignInFunc {
   dispatchSignIn: CallableFunction;
+}
+
+export interface SignUpFunc {
+  dispatchSignUp: CallableFunction;
 }
 
 export interface MessageData {

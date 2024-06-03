@@ -2,10 +2,10 @@ import { FC } from "react";
 import { FormattedMessage } from "react-intl";
 import { Col, Row } from "antd";
 
-import LoginForm from "./LoginForm";
-import { SignInFunc } from "@/types";
+import RegisterForm from "./RegisterForm";
+import { SignUpFunc } from "@/types";
 
-const LoginComponent: FC<SignInFunc> = ({ dispatchSignIn }) => {
+const LoginComponent: FC<SignUpFunc> = ({ dispatchSignUp }) => {
   return (
     <Row className="w-full h-full bg-default">
       <Col lg={15} className="flex w-full justify-center">
@@ -19,7 +19,7 @@ const LoginComponent: FC<SignInFunc> = ({ dispatchSignIn }) => {
         </div>
       </Col>
       <Col lg={9} className="flex bg-white w-full">
-        <LoginForm dispatchSignIn={dispatchSignIn} />
+        <RegisterForm dispatchSignUp={dispatchSignUp} />
       </Col>
     </Row>
   );
