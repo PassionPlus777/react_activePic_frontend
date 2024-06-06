@@ -4,6 +4,7 @@ import authSlice from "./authSlice";
 import messageSlice from "./messageSlice";
 import homeSlice from "./homeSlice";
 import eventSlice from "./eventSlice";
+import configSlice from "./configSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     message: messageSlice,
     home: homeSlice,
     event: eventSlice,
+    config: configSlice,
   },
 });
 

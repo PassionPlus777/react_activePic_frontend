@@ -232,6 +232,10 @@ export interface MessageData {
   content: string;
 }
 
+export interface ConfigData {
+  mobileStauts: boolean;
+}
+
 export interface HomeSlice {
   docs: any[];
   totalDocs: number;
@@ -255,6 +259,10 @@ export interface EventData {
 export interface TabsProps {
   setEventData: SetStateAction<Race>;
   setKey: SetStateAction<string>;
+}
+
+export interface ContentHeaderProps {
+  dispatchSetMobileStatus: CallableFunction;
 }
 
 export type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];

@@ -9,7 +9,7 @@ import qs from "qs";
 // import { fetchAllEvents } from "@/store/homeSlice";
 
 import { request } from "@/utils";
-import { SignInData } from "@/types";
+import { SignInData, SignUpData } from "@/types";
 
 import { showMessage } from "./messageSlice";
 
@@ -20,7 +20,7 @@ interface AuthState {
     id: string;
     role: string;
     email: string;
-    ownedRaces: any;
+    ownedRaces: any[];
   };
   error: { content?: string; datetime: number };
 }
@@ -47,7 +47,10 @@ export const getMe = createAsyncThunk<any, void, { rejectValue: string }>(
         auth: true,
       });
 
-      if (res.data.user.ownedRaces.length) {
+      if (
+        Object.keys(res.data.user).includes("ownedRaces") &&
+        res.data.user.ownedRaces.length
+      ) {
         const idArray = res.data.user.ownedRaces.map(
           (race: any) => race.galleryConfig.eventLogo
         );
@@ -84,7 +87,7 @@ export const getMe = createAsyncThunk<any, void, { rejectValue: string }>(
         }
       }
 
-      return res.data.user; // Return the response data
+      return { ...res.data, ownedRaces: [] }; // Return the response data
     } catch (error: any) {
       // Use rejectWithValue to return a custom payload as the rejected action
       return rejectWithValue("Login failed"); // Customize the error message
@@ -132,7 +135,7 @@ export const signIn = createAsyncThunk<
 
 export const signUp = createAsyncThunk<
   boolean,
-  SignInData,
+  SignUpData,
   { rejectValue: string }
 >(
   "users/register",
@@ -140,7 +143,7 @@ export const signUp = createAsyncThunk<
     try {
       const res = await request({
         method: "POST",
-        url: "/users/login",
+        url: "/users/register",
         data: {
           email,
           password,
@@ -180,10 +183,13 @@ export const authSlice = createSlice({
       .addCase(signIn.fulfilled, (state) => {
         state.loginStatus = true;
       })
-      .addCase(getMe.fulfilled, (state, action: PayloadAction<any>) => {
-        state.user = action.payload;
-        state.loginStatus = true;
-      });
+      .addCase(
+        getMe.fulfilled,
+        (state, action: PayloadAction<AuthState["user"]>) => {
+          state.user = { ...action.payload };
+          state.loginStatus = true;
+        }
+      );
   },
 });
 

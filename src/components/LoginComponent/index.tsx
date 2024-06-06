@@ -8,7 +8,7 @@ import { SignInFunc } from "@/types";
 const LoginComponent: FC<SignInFunc> = ({ dispatchSignIn }) => {
   return (
     <Row className="w-full h-full bg-default">
-      <Col lg={15} className="flex w-full justify-center">
+      <Col lg={15} className="flex w-full justify-center my-5">
         <div className="flex lg:flex-row flex-col justify-center items-center title">
           <div className="flex justify-center">
             <FormattedMessage id="welcome" />

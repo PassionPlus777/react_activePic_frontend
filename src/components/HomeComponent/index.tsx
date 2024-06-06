@@ -4,7 +4,7 @@ import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
 import ContentItem from "./ContentItem";
-import SpinComponent from "../SpinComponent";
+// import SpinComponent from "../SpinComponent";
 
 const HomeComponent: FC<any> = ({ ownedRaces }) => {
   const navigate = useNavigate();
@@ -38,13 +38,9 @@ const HomeComponent: FC<any> = ({ ownedRaces }) => {
         </Row>
       </div>
       <div className="mt-6">
-        {events.length ? (
-          events.map((event, index) => {
-            return <ContentItem event={event} key={index} />;
-          })
-        ) : (
-          <SpinComponent />
-        )}
+        {events.map((event, index) => {
+          return <ContentItem event={event} key={index} />;
+        })}
       </div>
     </>
   );

@@ -9,7 +9,8 @@ interface ButtonProps {
 const ContentItemButton: FC<ButtonProps> = ({ name, icon = "", onClick }) => {
   return (
     <div
-      className={`flex items-center p-2 bg-white rounded-md contentitem-button 
+      className={`flex items-center p-2 bg-white rounded-md contentitem-button ${
+        name === "Upload" ? `upload-button` : ``
       }`}
       onClick={onClick}
     >

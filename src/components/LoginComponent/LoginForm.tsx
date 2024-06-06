@@ -68,10 +68,12 @@ const LoginForm: FC<SignInFunc> = ({ dispatchSignIn }) => {
       <Form.Item>
         <GoogleSignIn />
       </Form.Item>
-      <Text>Don`t you have an Account?</Text>
-      <Link className="ml-2 font-bold" href="/register">
-        Join ActivePix
-      </Link>
+      <div className="flex justify-center flex-col items-center md:flex-row">
+        <Text>Don`t you have an Account?</Text>
+        <Link className="ml-2 font-bold" href="/register">
+          Join ActivePix
+        </Link>
+      </div>
     </Form>
   );
 };

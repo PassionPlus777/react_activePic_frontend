@@ -3,6 +3,11 @@
 @import "tailwindcss/utilities";
 @import "./customize.less";
 
+@sidebar-width: 250px;
+@content-bg: rgba(62, 76, 78, 0.7);
+@content-m-bg: rgba(233, 239, 242, 0.72);
+@mark-bg: rgba(25, 30, 36, 0.7);
+
 /* Medium Devices, Desktops Only */
 @media only screen and (min-width: 992px) {
   ::-webkit-scrollbar {
@@ -59,6 +64,10 @@ table {
       text-align: center !important;
     }
   }
+}
+
+.user-email {
+  color: #ef4100;
 }
 
 .pageloder {
@@ -123,6 +132,10 @@ table {
   background-size: cover;
 }
 
+.mark {
+  background: rgba(25, 30, 36, 0.7);
+}
+
 .title {
   div {
     font-family: "Roboto";
@@ -131,6 +144,7 @@ table {
     line-height: 71.14px;
     text-align: left;
     color: white;
+    transition: font-size 0.3s, line-height 0.3s;
   }
   img {
     width: 300px;
@@ -140,61 +154,29 @@ table {
     margin-top: -20px;
     transition: width 0.3s, height 0.3s;
   }
+  @media only screen and (max-width: 480px) {
+    div {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 51.14px;
+    }
+    img {
+      width: 200px;
+      height: 37px;
+    }
+  }
 }
 
-.home-component {
+#root {
   background: url("/images/home_background.png");
   background-size: cover;
+
   .search-input {
     background: rgba(81, 97, 99, 1);
     border: none;
     color: white;
   }
-  .sidebar {
-    background-color: rgba(233, 239, 242, 0.85);
-    .mark {
-      background: rgba(25, 30, 36, 0.7);
-    }
-    img {
-      max-width: 80%;
-    }
-    .user-email {
-      color: #ef4100;
-    }
-    .sidebar-button {
-      p {
-        font-size: 12px;
-      }
-      color: #343334;
-      background: linear-gradient(86.52deg, #e9eff2 -1.15%, #878a8c 126.02%);
-      text-decoration: none;
-      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-      cursor: pointer;
 
-      &:hover {
-        background: linear-gradient(86.52deg, #e9eff2 87.87%, #878a8c 126.02%);
-        box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.25);
-        color: #343334;
-      }
-    }
-
-    .selected-button {
-      background: #1e799b;
-      color: white;
-    }
-
-    .default-button {
-      background: linear-gradient(
-        to right,
-        rgba(233, 239, 242, 1),
-        rgba(135, 138, 140, 0.7)
-      );
-    }
-
-    .clear-button {
-      background: rgba(233, 239, 242, 1);
-    }
-  }
   .set-icon {
     .ant-btn-icon {
       position: absolute;
@@ -202,17 +184,12 @@ table {
       top: 8px;
     }
   }
-  .content {
-    background-color: #f9fafb;
-  }
-  .content-part {
-    font-size: 33px;
-    background: rgba(62, 76, 78, 0.7);
-  }
+
   .content-item {
     background: rgba(165, 215, 233, 0.5);
-    & > * {
+    div > div {
       box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+      margin: 5px;
     }
     .description {
       p {
@@ -220,33 +197,36 @@ table {
         margin-top: 5px;
       }
     }
+    .contentitem-button {
+      p {
+        font-size: 14px;
+      }
+      img {
+        width: 24px;
+        height: 24px;
+      }
+      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+      background: linear-gradient(
+        85.86deg,
+        rgba(233, 239, 242, 0.85) 0%,
+        rgba(138, 113, 31, 0.85) 160.58%
+      );
+      width: 120px;
+      text-decoration: none;
+      cursor: pointer;
+      &:hover {
+        box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.25);
+      }
+    }
+    .upload-button {
+      background: #531fdfd9;
+      color: white;
+    }
   }
 }
 
 .remember {
   margin-top: -3px;
-}
-
-.contentitem-button {
-  p {
-    font-size: 14px;
-  }
-  img {
-    width: 24px;
-    height: 24px;
-  }
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  background: linear-gradient(
-    85.86deg,
-    rgba(233, 239, 242, 0.85) 0%,
-    rgba(138, 113, 31, 0.85) 160.58%
-  );
-  min-width: 140px;
-  text-decoration: none;
-  cursor: pointer;
-  &:hover {
-    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.25);
-  }
 }
 
 .content-upload-button {
@@ -283,3 +263,6 @@ table {
     color: white !important;
   }
 }
+
+@import "./components/sidebar_component.less";
+@import "./components/content_header_component.less";

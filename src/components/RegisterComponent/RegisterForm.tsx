@@ -22,10 +22,10 @@ const RegisterForm: FC<SignUpFunc> = ({ dispatchSignUp }) => {
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      className="content-center p-5 w-full login-form"
+      className="content-center px-5 pt-10 w-full login-form"
     >
       <Row className="justify-between">
-        <Col md={11}>
+        <Col span={24} sm={11}>
           <Form.Item<SignUpData>
             name="firstName"
             className="w-full"
@@ -38,7 +38,7 @@ const RegisterForm: FC<SignUpFunc> = ({ dispatchSignUp }) => {
             <Input placeholder="Your First Name" size="large" />
           </Form.Item>
         </Col>
-        <Col md={11}>
+        <Col span={24} sm={11}>
           <Form.Item<SignUpData>
             name="surName"
             className="w-full"

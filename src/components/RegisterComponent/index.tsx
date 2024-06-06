@@ -9,11 +9,11 @@ const LoginComponent: FC<SignUpFunc> = ({ dispatchSignUp }) => {
   return (
     <Row className="w-full h-full bg-default">
       <Col lg={15} className="flex w-full justify-center">
-        <div className="flex lg:flex-row flex-col justify-center items-center title">
-          <div className="flex justify-center">
+        <div className="flex lg:flex-row flex-col justify-center items-center title p-10">
+          <div className="flex justify-center hidden md:inline-block">
             <FormattedMessage id="welcome" />
           </div>
-          <div className="lg:mt-0 mt-5">
+          <div className="lg:mt-0 pt-4 md:pt-0">
             <img src={"/images/mark.png"} alt="mark" />
           </div>
         </div>
