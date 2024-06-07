@@ -9,10 +9,10 @@ interface ButtonProps {
 const ContentItemButton: FC<ButtonProps> = ({ name, icon = "", onClick }) => {
   return (
     <div
-      className={`flex items-center p-2 bg-white rounded-md contentitem-button`}
+      className={`contentitem-button flex items-center p-2 px-10 bg-white rounded-md`}
       onClick={onClick}
     >
-      {icon && <img src={`icons/${icon}`} alt="event" />}
+      {/* {icon && <img src={`icons/${icon}`} alt="event" />} */}
       <p className="font-sans m-auto text-center font-semibold">{name}</p>
     </div>
   );

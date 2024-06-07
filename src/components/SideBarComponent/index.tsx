@@ -10,7 +10,7 @@ const SideBarComponent: FC = () => {
     location.reload();
   };
   return (
-    <div className="flex flex-col justify-around h-full">
+    <div className="sidebar-component flex flex-col justify-around h-full">
       <div className="header-component">
         <Link to="/" className="flex justify-center p-3 rounded-md">
           <img src={"/images/mark.png"} alt="mark" />

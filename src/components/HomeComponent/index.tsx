@@ -17,21 +17,26 @@ const HomeComponent: FC<any> = ({ ownedRaces }) => {
   }, [ownedRaces]);
 
   return (
-    <Layout className="h-full">
-      <Header className="p-0">
+    <Layout className="home-component h-full">
+      <Header style={{ height: "auto" }} className="p-0">
         <Row className="justify-between">
-          <Col span={15}>
+          <Col sm={15} span={24}>
             <Input
               placeholder="What event are you looking for?"
               className="search-input font-sans"
               prefix={<SearchOutlined />}
             />
           </Col>
-          <Col className="flex justify-end items-center">
+          <Col
+            sm={7}
+            lg={4}
+            span={24}
+            className="flex justify-end items-center"
+          >
             <Button
               type="primary"
               icon={<PlusCircleOutlined />}
-              className="px-6"
+              className="new-event-button px-6 w-full"
               onClick={() => navigate("/event")}
             >
               New Event

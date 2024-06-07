@@ -1,11 +1,15 @@
 import { MenuUnfoldOutlined } from "@ant-design/icons";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { HeaderProps } from "@/types";
 
 const HeaderComponent: FC<HeaderProps> = ({ dispatchSetMobileStatus }) => {
   const location = useLocation();
+
+  useEffect(() => {
+    dispatchSetMobileStatus(false);
+  }, [location]);
   return (
     <>
       <div className="header-desktop hidden xl:block p-3 text-white text-center text-[33px] rounded-md font-bold">

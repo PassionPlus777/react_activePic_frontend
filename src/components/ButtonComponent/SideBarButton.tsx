@@ -14,7 +14,7 @@ const ButtonComponent: FC<ButtonProps> = ({ name, icon, pathname = "" }) => {
   return (
     <div
       className={`flex items-center w-full font-bold mt-4 p-2 py-3 sidebar-button ${
-        location.pathname === pathname ? "selected-button" : "default-button"
+        location.pathname === pathname ? "selected-button" : ""
       }`}
       onClick={() => navigate(pathname)}
     >
