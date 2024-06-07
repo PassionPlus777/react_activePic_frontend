@@ -1,0 +1,36 @@
+.sidebar-button {
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    border-left: 4px solid rgba(254, 254, 254, 1);
+  }
+}
+
+.selected-button {
+  background: linear-gradient(
+    90deg,
+    rgba(254, 254, 254, 0.2) 0%,
+    rgba(62, 76, 78, 0.14) 47.62%
+  );
+  border-left: 4px solid rgba(254, 254, 254, 1);
+}
+
+.sidebarcomponent {
+  position: relative;
+  background-color: rgba(233, 239, 242, 0.85);
+  min-width: 230px;
+  width: @sidebar-width;
+  .header-component {
+    a:first-of-type {
+      background-color: @mark-bg;
+    }
+    img {
+      max-width: 80%;
+    }
+  }
+
+  .clear-button {
+    background: rgba(233, 239, 242, 1);
+  }
+}

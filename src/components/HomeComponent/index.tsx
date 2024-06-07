@@ -1,10 +1,12 @@
 import { FC, useEffect, useState } from "react";
-import { Col, Row, Input, Button } from "antd";
+import { Col, Row, Input, Button, Layout } from "antd";
 import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
 import ContentItem from "./ContentItem";
 // import SpinComponent from "../SpinComponent";
+
+const { Header, Content } = Layout;
 
 const HomeComponent: FC<any> = ({ ownedRaces }) => {
   const navigate = useNavigate();
@@ -15,9 +17,9 @@ const HomeComponent: FC<any> = ({ ownedRaces }) => {
   }, [ownedRaces]);
 
   return (
-    <>
-      <div className="mt-4">
-        <Row>
+    <Layout className="h-full">
+      <Header className="p-0">
+        <Row className="justify-between">
           <Col span={15}>
             <Input
               placeholder="What event are you looking for?"
@@ -25,7 +27,7 @@ const HomeComponent: FC<any> = ({ ownedRaces }) => {
               prefix={<SearchOutlined />}
             />
           </Col>
-          <Col span={9} className="flex justify-center">
+          <Col className="flex justify-end items-center">
             <Button
               type="primary"
               icon={<PlusCircleOutlined />}
@@ -36,13 +38,13 @@ const HomeComponent: FC<any> = ({ ownedRaces }) => {
             </Button>
           </Col>
         </Row>
-      </div>
-      <div className="mt-6">
+      </Header>
+      <Content className="mt-6 overflow-y-scroll">
         {events.map((event, index) => {
           return <ContentItem event={event} key={index} />;
         })}
-      </div>
-    </>
+      </Content>
+    </Layout>
   );
 };
 

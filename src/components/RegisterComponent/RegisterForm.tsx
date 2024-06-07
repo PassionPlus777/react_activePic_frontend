@@ -1,10 +1,12 @@
 import { FC } from "react";
 import type { FormProps } from "antd";
-import { Button, Col, Divider, Form, Input, Row } from "antd";
+import { Button, Col, Divider, Form, Input, Row, Typography } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 
 import { SignUpData, SignUpFunc } from "@/types";
 import GoogleSignIn from "../GoogleSignComponent";
+
+const { Text, Link } = Typography;
 
 const RegisterForm: FC<SignUpFunc> = ({ dispatchSignUp }) => {
   const onFinish: FormProps<SignUpData>["onFinish"] = (values) => {
@@ -22,7 +24,7 @@ const RegisterForm: FC<SignUpFunc> = ({ dispatchSignUp }) => {
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      className="content-center px-5 pt-10 w-full login-form"
+      className="register-form content-center px-5 lg:px-24 w-full"
     >
       <Row className="justify-between">
         <Col span={24} sm={11}>
@@ -113,6 +115,13 @@ const RegisterForm: FC<SignUpFunc> = ({ dispatchSignUp }) => {
       <Form.Item>
         <GoogleSignIn />
       </Form.Item>
+
+      <div className="flex flex-col justify-center items-center md:flex-row mt-10">
+        <Text className="flex items-center">Have an Account Already? </Text>
+        <Link className="ml-2 font-bold" href="/login">
+          Sign In
+        </Link>
+      </div>
     </Form>
   );
 };

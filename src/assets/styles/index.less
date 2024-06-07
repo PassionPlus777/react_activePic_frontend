@@ -4,8 +4,9 @@
 @import "./customize.less";
 
 @sidebar-width: 250px;
-@content-bg: rgba(62, 76, 78, 0.7);
-@content-m-bg: rgba(233, 239, 242, 0.72);
+@bg-1: rgba(62, 76, 78, 0.7);
+@bg-2: rgba(233, 239, 242, 0.72);
+@bg-3: rgba(25, 30, 36, 0.7);
 @mark-bg: rgba(25, 30, 36, 0.7);
 
 /* Medium Devices, Desktops Only */
@@ -51,10 +52,23 @@ html,
 body,
 #root {
   height: 100%;
+  overflow: hidden;
 }
 
 .font-sans {
   font-family: "Public Sans", sans-serif;
+}
+
+.bg-1 {
+  background-color: @bg-1;
+}
+
+.bg-2 {
+  background-color: @bg-2;
+}
+
+.bg-3 {
+  background-color: @bg-3 !important;
 }
 
 table {
@@ -128,7 +142,7 @@ table {
 }
 
 .bg-default {
-  background: url("../images/default_background.png") no-repeat;
+  background: url("../images/Landing screen.png") no-repeat;
   background-size: cover;
 }
 
@@ -184,76 +198,6 @@ table {
       top: 8px;
     }
   }
-
-  .content-item {
-    background: rgba(165, 215, 233, 0.5);
-    div > div {
-      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-      margin: 5px;
-    }
-    .description {
-      p {
-        line-height: 15px;
-        margin-top: 5px;
-      }
-    }
-    .contentitem-button {
-      p {
-        font-size: 14px;
-      }
-      img {
-        width: 24px;
-        height: 24px;
-      }
-      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-      background: linear-gradient(
-        85.86deg,
-        rgba(233, 239, 242, 0.85) 0%,
-        rgba(138, 113, 31, 0.85) 160.58%
-      );
-      width: 120px;
-      text-decoration: none;
-      cursor: pointer;
-      &:hover {
-        box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.25);
-      }
-    }
-    .upload-button {
-      background: #531fdfd9;
-      color: white;
-    }
-  }
-}
-
-.remember {
-  margin-top: -3px;
-}
-
-.content-upload-button {
-  p {
-    font-size: 14px;
-    color: white;
-  }
-  div {
-    background: rgba(104, 50, 245, 1);
-    padding: 9.5px;
-  }
-
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  background: rgba(83, 31, 223, 0.85);
-
-  min-width: 140px;
-  text-decoration: none;
-  cursor: pointer;
-  &:hover {
-    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.25);
-    div {
-      padding: 10px 11.5px;
-      img:first-child {
-        margin-bottom: 3px;
-      }
-    }
-  }
 }
 
 .statistic-card {
@@ -264,5 +208,10 @@ table {
   }
 }
 
-@import "./components/sidebar_component.less";
-@import "./components/content_header_component.less";
+@import "./components/sidebar.less";
+@import "./components/header.less";
+@import "./components/contentItem.less";
+@import "./components/home.less";
+@import "./components/login.less";
+@import "./components/register.less";
+@import "./components/googleSign.less";

@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+import { Button, Typography } from "antd";
+
+const { Text } = Typography;
 
 const GoogleSignIn: React.FC = () => {
   useEffect(() => {
@@ -20,7 +23,15 @@ const GoogleSignIn: React.FC = () => {
     console.log("Encoded JWT ID token: " + response.credential);
   }
 
-  return <div id="signInDiv"></div>;
+  return (
+    <Button
+      onClick={() => window.google.accounts.id.prompt()}
+      className="google-button flex items-center justify-center w-full rounded-md"
+    >
+      <img src="icons/icon (28).png" alt="google" />
+      <Text>Sign In with Google</Text>
+    </Button>
+  );
 };
 
 export default GoogleSignIn;

@@ -24,7 +24,7 @@ const LoginForm: FC<SignInFunc> = ({ dispatchSignIn }) => {
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      className="content-center p-5 w-full login-form"
+      className="login-form content-center px-5 lg:px-24 w-full"
     >
       <Form.Item<SignInData>
         name="email"
@@ -36,21 +36,26 @@ const LoginForm: FC<SignInFunc> = ({ dispatchSignIn }) => {
           },
         ]}
       >
-        <Input placeholder="Email" size="large" prefix={<MailOutlined />} />
+        <Input placeholder="example@anyemail.com" prefix={<MailOutlined />} />
       </Form.Item>
 
       <Form.Item<SignInData> name="password" rules={[{ required: true }]}>
-        <Input.Password
-          size="large"
-          placeholder="Password"
-          prefix={<LockOutlined />}
-        />
+        <Input.Password placeholder="Password" prefix={<LockOutlined />} />
       </Form.Item>
 
       <Form.Item<SignInData> name="remember" valuePropName="checked">
-        <div className="flex">
-          <Switch />
-          <p className="ml-5 remember">Remember me</p>
+        <div className="flex justify-between">
+          <div className="flex">
+            <Switch />
+            <Text style={{ lineHeight: "25px" }} className="ml-5 font-bold">
+              Remember me
+            </Text>
+          </div>
+          <div>
+            <Link className="ml-2 font-bold" href="/register">
+              Forgot Password
+            </Link>
+          </div>
         </div>
       </Form.Item>
 
@@ -68,8 +73,8 @@ const LoginForm: FC<SignInFunc> = ({ dispatchSignIn }) => {
       <Form.Item>
         <GoogleSignIn />
       </Form.Item>
-      <div className="flex justify-center flex-col items-center md:flex-row">
-        <Text>Don`t you have an Account?</Text>
+      <div className="flex flex-col justify-center items-center md:flex-row mt-10">
+        <Text className="flex items-center">Don`t you have an Account?</Text>
         <Link className="ml-2 font-bold" href="/register">
           Join ActivePix
         </Link>

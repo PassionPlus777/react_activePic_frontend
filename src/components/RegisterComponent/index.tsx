@@ -7,9 +7,9 @@ import { SignUpFunc } from "@/types";
 
 const LoginComponent: FC<SignUpFunc> = ({ dispatchSignUp }) => {
   return (
-    <Row className="w-full h-full bg-default">
+    <Row className="register-component w-full h-full bg-default">
       <Col lg={15} className="flex w-full justify-center">
-        <div className="flex lg:flex-row flex-col justify-center items-center title p-10">
+        <div className="flex lg:flex-row flex-col justify-center items-center title">
           <div className="flex justify-center hidden md:inline-block">
             <FormattedMessage id="welcome" />
           </div>

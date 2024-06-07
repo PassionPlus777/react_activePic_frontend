@@ -261,7 +261,7 @@ export interface TabsProps {
   setKey: SetStateAction<string>;
 }
 
-export interface ContentHeaderProps {
+export interface HeaderProps {
   dispatchSetMobileStatus: CallableFunction;
 }
 
